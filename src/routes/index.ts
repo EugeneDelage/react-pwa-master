@@ -3,7 +3,7 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import ThreePIcon from '@mui/icons-material/ThreeP';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import HttpsIcon from '@mui/icons-material/Https';
 
 import asyncComponentLoader from '@/utils/loader';
 
@@ -39,6 +39,12 @@ const routes: Routes = {
     path: '/UserProfile',
     title: 'Profil',
     icon: AccountCircleIcon,
+  },
+  [Pages.PageSignIn]: {
+    component: asyncComponentLoader(() => import('@/pages/PageSignIn')),
+    path: '/SignIn',
+    title: 'Connect',
+    icon: HttpsIcon,
   },
   [Pages.NotFound]: {
     component: asyncComponentLoader(() => import('@/pages/NotFound')),

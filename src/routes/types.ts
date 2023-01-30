@@ -9,6 +9,7 @@ enum Pages {
   PageConsentements,
   PageDemandesElus,
   PageUserProfile,
+  PageSignIn,
   NotFound,
 }
 

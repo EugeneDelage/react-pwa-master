@@ -1,4 +1,4 @@
-import GitHubIcon from '@mui/icons-material/GitHub';
+import LockIcon from '@mui/icons-material/Lock';
 import ThemeIcon from '@mui/icons-material/InvertColors';
 import MenuIcon from '@mui/icons-material/Menu';
 import Alert from '@mui/material/Alert';
@@ -20,8 +20,12 @@ import useTheme from '@/store/theme';
 
 import { HotKeysButton } from './styled';
 import { getRandomJoke } from './utils';
+import { Link } from 'react-router-dom';
+import routes from '@/routes';
+import Pages from '@/routes/Pages';
 
 function Header() {
+
   const [, sidebarActions] = useSidebar();
   const [, themeActions] = useTheme();
   const [, notificationsActions] = useNotifications();
@@ -39,8 +43,8 @@ function Header() {
         // to show fully customized notification
         content: (
           <Alert severity="info">
-            <AlertTitle>Notification demo (random IT jokes :))</AlertTitle>
-            {getRandomJoke()}
+            <AlertTitle>Notification</AlertTitle>
+            {/* {getRandomJoke()} */}
           </Alert>
         ),
       },
@@ -68,7 +72,7 @@ function Header() {
           </FlexBox>
           <FlexBox>
             <FlexBox>
-              <Tooltip title="Hot keys" arrow>
+              <Tooltip title="Clés de raccourcis" arrow>
                 <HotKeysButton
                   size="small"
                   variant="outlined"
@@ -80,9 +84,12 @@ function Header() {
               </Tooltip>
             </FlexBox>
             <Divider orientation="vertical" flexItem />
-            <Tooltip title="It's open source" arrow>
-              <IconButton color="info" size="large" component="a" href={repository} target="_blank">
-                <GitHubIcon />
+            <Tooltip title="Se connecter" arrow>
+              <IconButton color="info" size="large"  
+                onClick={() => {
+                  alert('clicked');
+                 }}>
+                <LockIcon />
               </IconButton>
             </Tooltip>
             <Divider orientation="vertical" flexItem />
