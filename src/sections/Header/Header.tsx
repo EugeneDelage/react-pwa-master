@@ -12,17 +12,16 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 
 import { FlexBox } from '@/components/styled';
-import { repository, title } from '@/config';
+// import { repository, title } from '@/config';
 import useHotKeysDialog from '@/store/hotkeys';
 import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
 import useTheme from '@/store/theme';
 
 import { HotKeysButton } from './styled';
-import { getRandomJoke } from './utils';
+// import { getRandomJoke } from './utils';
 import { Link } from 'react-router-dom';
-import routes from '@/routes';
-import Pages from '@/routes/Pages';
+import { title } from '@/config';
 
 function Header() {
 
@@ -85,12 +84,11 @@ function Header() {
             </FlexBox>
             <Divider orientation="vertical" flexItem />
             <Tooltip title="Se connecter" arrow>
-              <IconButton color="info" size="large"  
-                onClick={() => {
-                  alert('clicked');
-                 }}>
+              <Link to={'/SignIn'}>
+              <IconButton color="info" size="large">
                 <LockIcon />
               </IconButton>
+              </Link>
             </Tooltip>
             <Divider orientation="vertical" flexItem />
             <Tooltip title="Switch theme" arrow>

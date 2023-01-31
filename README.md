@@ -275,3 +275,6 @@ There are two more scripts:
 ## License
 
 [MIT](./LICENSE)
+
+# mock data
+json-server --watch db.json

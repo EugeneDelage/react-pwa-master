@@ -1,0 +1,15 @@
+{
+    "posts": [
+        { "id": 1, "title": "json-server", "author": "typicode" }
+    ],
+    "comments": [
+        { "id": 1, "body": "some comment", "postId": 1 }
+    ],
+    "profile": { "name": "typicode" },
+    "consentements": [
+        { "id": 1, "requerant": "Catherine Rousseau", "equipeelu": "District-01 Isabelle Piché", "demandeDate": "2022-05-06", "relanceDate": "2022-06-06" },
+        { "id": 2, "requerant": "John McQueen", "equipeelu": "District-01 Isabelle Piché", "demandeDate": "2021-11-14", "relanceDate": "2022-01-14" },
+        { "id": 3, "requerant": "Benoit Hill", "equipeelu": "District-02: Paul Castonguay", "demandeDate": "2022-04-23", "relanceDate": "2022-05-23" },
+        { "id": 4, "requerant": "Jonathan Dubois", "equipeelu": "District-02: Paul Castonguay", "demandeDate": "2022-09-11", "relanceDate": "2022-10-11" }
+    ]
+}
