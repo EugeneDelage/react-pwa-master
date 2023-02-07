@@ -28,6 +28,12 @@ const routes: Routes = {
     title: 'Consentements',
     icon: RecommendIcon,
   },
+  [Pages.PageConsentement]: {
+    component: asyncComponentLoader(() => import('@/pages/PageConsentement')),
+    path: '/Consentement/:id',
+    // title: 'Consentement',
+    icon: RecommendIcon,
+  },
   [Pages.PageDemandesElus]: {
     component: asyncComponentLoader(() => import('@/pages/PageDemandesElus')),
     path: '/DemandesElus',

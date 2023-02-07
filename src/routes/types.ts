@@ -11,6 +11,7 @@ enum Pages {
   PageUserProfile,
   PageSignIn,
   NotFound,
+  PageConsentement
 }
 
 type PathRouteCustomProps = {

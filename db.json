@@ -10,6 +10,7 @@
         { "id": 1, "requerant": "Catherine Rousseau", "equipeelu": "District-01 Isabelle Piché", "demandeDate": "2022-05-06", "relanceDate": "2022-06-06" },
         { "id": 2, "requerant": "John McQueen", "equipeelu": "District-01 Isabelle Piché", "demandeDate": "2021-11-14", "relanceDate": "2022-01-14" },
         { "id": 3, "requerant": "Benoit Hill", "equipeelu": "District-02: Paul Castonguay", "demandeDate": "2022-04-23", "relanceDate": "2022-05-23" },
+        { "id": 5, "requerant": "Jean-François Bernard", "equipeelu": "District-02: Paul Castonguay", "demandeDate": "2022-08-27", "relanceDate": "2022-09-23" },
         { "id": 4, "requerant": "Jonathan Dubois", "equipeelu": "District-02: Paul Castonguay", "demandeDate": "2022-09-11", "relanceDate": "2022-10-11" }
     ]
 }
