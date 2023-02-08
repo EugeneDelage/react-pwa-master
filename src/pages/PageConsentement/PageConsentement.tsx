@@ -11,12 +11,23 @@ import { useFormik } from 'formik';
 import { Button, Card, CardActions, CardContent, TextField, TextFieldProps } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 //import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 // import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
-import { DesktopDatePicker } from '@mui/x-date-pickers/DeskTopDatePicker'
+import {useForm} from 'react-hook-form';
 
 
 function PageConsentement() {
+
+  const {id} = useParams();
+  const { register, handleSubmit}= useForm();
+
+  const [consentement, setConsentement] = useState({
+    id:0,
+    requerant: "test",
+    equipeelu: "twst elu",
+    demandeDate:new Date(),
+    relanceDate:new Date()
+  });
 
   const validationSchema = Yup.object().shape({
   requerant: Yup.string()
@@ -31,7 +42,7 @@ function PageConsentement() {
                   .when("demandeDate", (started, Yup) => started && Yup.min(started, "Date de relance ne peut être avant date de la demande"))
                   .required('End Date is required'), 
       
-})
+  })
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit= async (values: any,actions: any)=>{
     console.log(values);
@@ -54,21 +65,19 @@ function PageConsentement() {
     onSubmit,
   });
 
-  const [consentement, setConsentement] = useState<IConsentement|null>(null);
-  const {id} = useParams();
-    
   useEffect(() => {
-     getConsentement();
-  });      
+    loadConsentement();
+ },[]);      
 
-  const getConsentement = async () =>{
-    const response = await ConsentementApiService.getConsentementById(Number(id));
-    setConsentement(response.data);
+  const loadConsentement = async () =>{
+    const result = await ConsentementApiService.getConsentementById(Number(id));
+    setConsentement(result.data);
     // formik.setFieldValue("requerant",consentement?.requerant,false);
-    formik.setValues(consentement as IConsentement,false);
-    // formik.setValues(consentement,false);
-  }    
-  formik.setValues(consentement as IConsentement,false);
+    // formik.setValues(consentement as IConsentement,false);
+    formik.setValues(consentement,false);
+  }   
+
+  //formik.setValues(consentement as IConsentement,false);
 
   return (
     <>
