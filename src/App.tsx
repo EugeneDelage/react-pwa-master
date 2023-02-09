@@ -11,9 +11,13 @@ import HotKeys from '@/sections/HotKeys';
 import Notifications from '@/sections/Notifications';
 import SW from '@/sections/SW';
 import Sidebar from '@/sections/Sidebar';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient= new QueryClient();
 
 function App() {
   return (
+    <QueryClientProvider client={queryClient}>
     <Fragment>
       <CssBaseline />
       <Notifications />
@@ -25,6 +29,7 @@ function App() {
         <Pages />
       </BrowserRouter>
     </Fragment>
+    </QueryClientProvider>
   );
 }
 

@@ -1,83 +1,86 @@
+// Material stuff
 import Typography from '@mui/material/Typography';
 
-import { FullSizeCenteredFlexBox } from '@/components/styled';
-import { useEffect, useState } from 'react';
-import { ConsentementApiService } from '@/api/ConsentementService';
-import { useParams } from 'react-router-dom';
+// import DatePicker  from @mui/x-date-pickers;
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { Button, Card, CardContent, TextField, TextFieldProps} from '@mui/material';
 import { Box } from '@mui/system';
-import { IConsentement } from '@/models/Consentement';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import { Button, Card, CardActions, CardContent, TextField, TextFieldProps } from '@mui/material';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-//import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
-import {useForm} from 'react-hook-form';
+import { FullSizeCenteredFlexBox } from '@/components/styled';
 
+// data related
+import { ConsentementApiService } from '@/api/ConsentementService';
+import { IConsentement } from '@/models/Consentement';
+
+// validation
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+
+//react et react-hook-form
+import { useParams } from 'react-router-dom';
+import { useForm ,Controller } from 'react-hook-form';
+import { useQuery } from 'react-query'
 
 function PageConsentement() {
 
   const {id} = useParams();
-  const { register, handleSubmit}= useForm();
+  
+  const validationSchema = Yup.object().shape({
+    requerant: Yup.string()
+              .required("Le nom du requérant est obligatoire"),
+    equipeelu: Yup.string()
+               .required("Le nom ddu personnel élu est obligatoire"),
+    demandeDate: Yup.string()
+                    .typeError("Erreur-Date requise")
+                    .required("Date obligatoire"),   
+    relanceDate: Yup.string()
+                    .typeError("Erreur-Date requise")
+                    // .when("demandeDate", (demandeDate, Yup) => 
+                    //   demandeDate && Yup.min(demandeDate, "Date de relance ne peut être avant date de la demande"))
+                    .required('End Date is required'), 
+        
+  })
 
-  const [consentement, setConsentement] = useState({
-    id:0,
-    requerant: "test",
-    equipeelu: "twst elu",
-    demandeDate:new Date(),
-    relanceDate:new Date()
+  const fetchConsentement = async () =>{
+     console.log("fetching Consentement");
+     const response = await ConsentementApiService.getConsentementById(Number(id));
+     const consentement=response.data;
+     console.log("fetch response.data",consentement);
+     reset(response.data);
+     return consentement;
+  }   
+ 
+  // const [data, setData] = useState<IConsentement>();
+  const {isError, isLoading, data, error} = useQuery(
+    'consentement',
+    fetchConsentement,
+    {staleTime:60000}
+  );
+
+  const { handleSubmit, control, reset, formState: { errors } } = useForm<IConsentement>({
+    defaultValues:{...data},
+    resolver:yupResolver(validationSchema)
   });
 
-  const validationSchema = Yup.object().shape({
-  requerant: Yup.string()
-            .required("Le nom du requérant est obligatoire"),
-  equipeelu: Yup.string()
-             .required("Le nom ddu personnel élu est obligatoire"),
-  demandeDate: Yup.string()
-                  .typeError("Erreur-Date requise")
-                  .required("Date obligatoire"),   
-  relanceDate: Yup.string()
-                  .typeError("Erreur-Date requise")
-                  .when("demandeDate", (started, Yup) => started && Yup.min(started, "Date de relance ne peut être avant date de la demande"))
-                  .required('End Date is required'), 
-      
-  })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit= async (values: any,actions: any)=>{
-    console.log(values);
-    console.log(actions);
-    await new Promise((resolve)=> setTimeout(resolve,100));
-    actions.resetForm();
 
+  // useEffect(() => {
+  //   console.log("mounted.")
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[]);   
+  
+  if (isLoading){
+    console.log("Loading...",data);
+    return <div>Charchement...</div>
+  }
+  if (isError){
+    console.log("Erreur...",error);
+    return <div>Erreur...</div>
   }
 
-  const formik = useFormik({
-    initialValues: {
-      id:0,
-      requerant: "test",
-      equipeelu: "twst elu",
-      demandeDate:new Date(),
-      relanceDate:new Date(),
-    },
-    enableReinitialize: true,
-    validationSchema: validationSchema,
-    onSubmit,
-  });
-
-  useEffect(() => {
-    loadConsentement();
- },[]);      
-
-  const loadConsentement = async () =>{
-    const result = await ConsentementApiService.getConsentementById(Number(id));
-    setConsentement(result.data);
-    // formik.setFieldValue("requerant",consentement?.requerant,false);
-    // formik.setValues(consentement as IConsentement,false);
-    formik.setValues(consentement,false);
-  }   
-
-  //formik.setValues(consentement as IConsentement,false);
+  const onSubmit=(data:IConsentement)=> {
+    console.log(data);
+  }
 
   return (
     <>
@@ -86,51 +89,94 @@ function PageConsentement() {
         <CardContent>
           <Typography variant="h2" align="center">Consentement</Typography>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <form onSubmit={formik.handleSubmit} >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Box height={16}/>
-            <TextField
-            fullWidth
-            id="requerant"
-            name="requerant"
-            label="Requérant"
-            value={formik.values.requerant}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.requerant && Boolean(formik.errors.requerant)}
-            helperText={formik.touched.requerant && formik.errors.requerant}
+            <Controller 
+               name="requerant"
+               control={control}
+               render={({field})=> (
+                 <TextField {...field} 
+                  error={!!errors.requerant}
+                  helperText={errors.requerant ? errors.requerant?.message:''}
+                  label="Requérant"
+                 />
+               )}
             />
             <Box height={16}/>
-            <TextField
-            fullWidth
-            id="equipeelu"
-            name="equipeelu"
-            label="Équipe Élus"
-            value={formik.values.equipeelu}
-            onChange={formik.handleChange}
-            error={formik.touched.equipeelu && Boolean(formik.errors.equipeelu)}
-            helperText={formik.touched.equipeelu && formik.errors.equipeelu}
+            <Controller 
+               name="equipeelu"
+               control={control}
+               render={({field})=> (
+                 <TextField {...field} 
+                  error={!!errors.equipeelu}
+                  helperText={errors.equipeelu ? errors.equipeelu?.message:''}
+                  label="Équipe élu"
+                 />
+               )}
             />
-            <DesktopDatePicker
-              label="Date de la demande"
-              inputFormat='YYYY/MM/DD'
-              showDaysOutsideCurrentMonth
-              value={formik.values.demandeDate}
-              onChange={formik.handleChange}
-              renderInput={(params:TextFieldProps) => {return <TextField 
-                error={formik.touched.demandeDate && Boolean(formik.errors.demandeDate)}
-                helperText={formik.touched.demandeDate && formik.errors.demandeDate}
-                {...params} />}}
+            <Box height={16}/>
+            <Controller 
+               name="demandeDate"
+               control={control}
+               render={({field})=> (
+                 <TextField {...field} 
+                  error={!!errors.demandeDate}
+                  helperText={errors.demandeDate ? errors.demandeDate?.message:''}
+                  label="Date de la demande"
+                 />
+               )}
             />
-          </form>
-          </LocalizationProvider>
-          </CardContent>
-          <CardActions>
-            <Button color="primary" variant="contained" fullWidth type="submit" disabled={!formik.dirty || !formik.isValid}>
-            Ok
+            <Box height={16}/>            
+            <Controller 
+             control={control}            
+             name="relanceDate"
+             render={({ field: { ref, onBlur, name,...field} }) => (
+              
+              <DatePicker 
+                {...field}
+                inputRef={ref}
+                label="Date relance" 
+                renderInput={(inputProps) => (
+                  <TextField
+                    {...inputProps}
+                    onBlur={onBlur}
+                    name={name}
+                    error={!!errors.relanceDate}
+                    helperText={errors.relanceDate ? errors.relanceDate?.message:''}                
+                  />
+                )}
+                format="YYYY-MM-DD"
+                KeyboardButtonProps={{"aria-label": "change date"}}
+                error={!!errors.relanceDate}
+                helperText={errors.relanceDate ? errors.relanceDate?.message:''}                
+              />
+             )}
+            />
+            {/* <Controller 
+               name="relanceDate"
+               control={control}
+               render={({field})=> (
+                 <TextField {...field} 
+                  error={!!errors.relanceDate}
+                  helperText={errors.relanceDate ? errors.relanceDate?.message:''}
+                  label="Date de la relance"
+                 />
+               )}
+            /> */}
+            <Box height={16}/>            
+            {errors.requerant && <p>{errors.requerant.message}</p>}
+            {errors.requerant && <p>{errors.requerant.message}</p>}
+            {errors.demandeDate && <p>{errors.demandeDate.message}</p>}            
+            {errors.relanceDate && <p>{errors.relanceDate.message}</p>}                        
+            {errors.id && <p>{errors.id.message}</p>}                                    
+            <Button type="submit" variant="contained" color="primary">
+               Enregistrer
             </Button>
-          </CardActions>
-
+          </form>
+          </LocalizationProvider>                        
+          </CardContent>
       </Card>
+
       </FullSizeCenteredFlexBox>
     </>
   );
