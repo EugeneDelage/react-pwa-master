@@ -1,37 +1,65 @@
+/* eslint-disable react/jsx-key */
+// material
 import Typography from '@mui/material/Typography';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import { DataGrid , GridColumns, GridRowId,GridActionsCellItem, useGridApiRef } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
-// import moment from 'moment';
-import { useState,useEffect } from 'react';
-import { ConsentementApiService } from '@/api/ConsentementService';
-import Box from '@mui/material/Box';
-import { DataGrid , GridColumns, GridRowId,GridActionsCellItem } from '@mui/x-data-grid';
+
+// react
+import { useState,useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 import * as React from 'react';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+
+// data
+import { ConsentementApiService } from '@/api/ConsentementService';
 import { IConsentement } from '@/models/Consentement';
+import { Tooltip } from '@mui/material';
+
 
 function PageConsentements() {
-  const [consentements, setConsentements] = useState([] as IConsentement);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
+  const [consentements, setConsentements] = useState<IConsentement>([]);
+  const [open, setOpen] = useState(false);
+
+  type Row = typeof consentements[number];
+
+  const handleRelance = (params) => {
+    console.log('Before setOpen(true)',open);
+    console.log('params',params);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    console.log('Close button');
+    setOpen(false);
+  };
+  
   useEffect(() => {
     getConsentements();
   }, [])
 
   const getConsentements = async () =>{
       const response = await ConsentementApiService.getAllConsentements();
-      console.log(response);
+      console.log(`reponse=${response}`);
       setConsentements(response.data);
   }
 
-  type Row = typeof consentements[number];
-  
   const navigate = useNavigate(); 
- 
-  const [rows, setRows] = React.useState<Row[]>(consentements);
-
-  const openConsentement = React.useCallback(
+  const openConsentement = useCallback(
     (id: GridRowId) => () => {
       setTimeout(() => {
         navigate(`/consentement/${id}`);
@@ -40,24 +68,23 @@ function PageConsentements() {
     [],
   );
 
-  const columns = React.useMemo<GridColumns<Row>>(
+  const columns = useMemo<GridColumns<Row>>(
     () => [
       { field: 'id'         , type: 'number' , headerName: 'Id'             ,width: 60 },
-      { field: 'requerant'  , type: 'string' , headerName: 'Requérant'      ,width: 160},
-      { field: 'equipeelu'  , type: 'string' , headerName: 'Équipe Élu'     ,width: 160},
-      { field: 'demandeDate', type: 'date'   , headerName: 'Date demande'   ,width: 200},
-      { field: 'relanceDate', type: 'date'   , headerName: 'Date de relance',width: 200},
+      { field: 'requerant'  , type: 'string' , headerName: 'Requérant'      ,width: 200},
+      { field: 'equipeelu'  , type: 'string' , headerName: 'Équipe Élu'     ,width: 200},
+      { field: 'demandeDate', type: 'date'   , headerName: 'Date demande'   ,width: 150},
+      { field: 'relanceDate', type: 'date'   , headerName: 'Date de relance',width: 150},
       {
-        field: 'actions',
-        type: 'actions',
-        width: 80,
-        getActions: (params) => [
-          <GridActionsCellItem
-          icon={<OpenInNewIcon />}
-          label="Ouvrir"
-          onClick={openConsentement(params.id)}
-          />,
-        ],
+        field: 'actions'    , type: 'actions', headerName: 'Actions'        , width: 120,
+        renderCell:(params)=><Box>
+          <Tooltip title="Consulter consentement">
+            <OpenInNewIcon onClick={openConsentement(params.id)} />
+          </Tooltip>
+          <Tooltip title="Relancer">
+            <HowToRegIcon onClick={()=>handleRelance(params)}/>
+          </Tooltip>
+        </Box>,
       },
     ],
     [openConsentement],
@@ -70,14 +97,44 @@ function PageConsentements() {
     
       <FullSizeCenteredFlexBox>
         <Box sx={{height:400, width:'100%'}}>
+        <Box textAlign='center'>
+          <Button variant='contained'>
+            Demander un consentement
+          </Button>
+        </Box>
+      
         <Typography  variant="h4" sx={{ textAlign:"center", mt: 2 ,mb:3, color: (theme) => theme.palette.info.main }}>
           Consentements
         </Typography>
         <DataGrid
-            columns={columns}
-            rows={consentements}
-          />
+          columns={columns}
+          rows={consentements}
+        />
         </Box>
+        <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+        <DialogTitle id="responsive-dialog-title">
+          {"Relance de consentement?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            La demande initiale de consentement a été effectuée le {}. 
+            Souhaitez vous relancer le citoyen pour cette demande?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Annuler
+          </Button>
+          <Button onClick={handleClose} autoFocus>
+            Confirmer
+          </Button>
+        </DialogActions>
+      </Dialog>
       </FullSizeCenteredFlexBox>
     </>
   );

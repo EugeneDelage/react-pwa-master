@@ -1,5 +1,6 @@
 import { ThemeOptions } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
+import { frCA } from 'date-fns/locale';
 
 import { Themes } from './types';
 
@@ -10,6 +11,7 @@ const sharedTheme = {
       paper: '#fff',
     },
   },
+  frCA,
   components: {
     MuiButtonBase: {
       defaultProps: {
@@ -31,7 +33,7 @@ const sharedTheme = {
         },
       },
     },
-  },
+  }
 } as ThemeOptions; // the reason for this casting is deepmerge return type
 // TODO (Suren): replace mui-utils-deepmerge with lodash or ramda deepmerge
 
@@ -47,7 +49,10 @@ const themes: Record<Themes, ThemeOptions> = {
         main: '#3f51b5',
       },
     },
-  }),
+
+  },
+
+  ),
 
   dark: deepmerge(sharedTheme, {
     palette: {
