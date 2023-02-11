@@ -67,7 +67,13 @@ function PageConsentements() {
     },
     [],
   );
-
+ const createConsentement= useCallback(
+  () => {
+    setTimeout(() => {
+      navigate(`/consentementadd/`);
+    });
+  }
+);
   const columns = useMemo<GridColumns<Row>>(
     () => [
       { field: 'id'         , type: 'number' , headerName: 'Id'             ,width: 60 },
@@ -93,12 +99,12 @@ function PageConsentements() {
 
   return (
     <>
-      <Meta title="Consentements" />
+      {/* <Meta title="Consentements" /> */}
     
       <FullSizeCenteredFlexBox>
         <Box sx={{height:400, width:'100%'}}>
         <Box textAlign='center'>
-          <Button variant='contained'>
+          <Button variant='contained' onClick={createConsentement}>
             Demander un consentement
           </Button>
         </Box>

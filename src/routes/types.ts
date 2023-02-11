@@ -7,11 +7,12 @@ enum Pages {
   Home,
   PageRequetesCitoyennes,
   PageConsentements,
+  PageAddConsentement,  
+  PageConsentement,    
   PageDemandesElus,
   PageUserProfile,
   PageSignIn,
   NotFound,
-  PageConsentement
 }
 
 type PathRouteCustomProps = {

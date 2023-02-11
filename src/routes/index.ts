@@ -11,44 +11,56 @@ import { Pages, Routes } from './types';
 
 const routes: Routes = {
   [Pages.Home]: {
-    component: asyncComponentLoader(() => import('@/pages/Home')),
     path: '/',
+    component: asyncComponentLoader(() => import('@/pages/Home')),
     title: 'Page principale',
     icon: HomeIcon,
   },
   [Pages.PageRequetesCitoyennes]: {
+    path: '/requetescitoyennes',
     component: asyncComponentLoader(() => import('@/pages/PageRequetesCitoyennes')),
-    path: '/RequetesCitoyennes',
     title: 'Requetes Citoyennes',
     icon: GroupsIcon,
   },
   [Pages.PageConsentements]: {
+    path: '/consentements',
     component: asyncComponentLoader(() => import('@/pages/PageConsentements')),
-    path: '/Consentements',
     title: 'Consentements',
     icon: RecommendIcon,
   },
   [Pages.PageConsentement]: {
+    path: '/consentement/:id',
     component: asyncComponentLoader(() => import('@/pages/PageConsentement')),
-    path: '/Consentement/:id',
+    // title: 'Consentement',
+    icon: RecommendIcon,
+  },
+  [Pages.PageAddConsentement]: {
+    path: '/consentementadd/',
+    component: asyncComponentLoader(() => import('@/pages/PageAddConsentement')),
+    // title: 'Consentement',
+    icon: RecommendIcon,
+  },
+  [Pages.PageConsentement]: {
+    path: '/consentement/',
+    component: asyncComponentLoader(() => import('@/pages/PageConsentement')),
     // title: 'Consentement',
     icon: RecommendIcon,
   },
   [Pages.PageDemandesElus]: {
+    path: '/demandeselus',
     component: asyncComponentLoader(() => import('@/pages/PageDemandesElus')),
-    path: '/DemandesElus',
     title: 'Demandes Elus',
     icon: ThreePIcon,
   },
   [Pages.PageUserProfile]: {
+    path: '/userprofile',
     component: asyncComponentLoader(() => import('@/pages/PageUserProfile')),
-    path: '/UserProfile',
     title: 'Profil',
     icon: AccountCircleIcon,
   },
   [Pages.PageSignIn]: {
+    path: '/signin',
     component: asyncComponentLoader(() => import('@/pages/PageSignIn')),
-    path: '/SignIn',
     title: 'Connect',
     icon: HttpsIcon,
   },

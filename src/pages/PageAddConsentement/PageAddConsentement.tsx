@@ -1,8 +1,9 @@
 // Material stuff
 import Typography from '@mui/material/Typography';
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 
 // import DatePicker  from @mui/x-date-pickers;
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, TextField, TextFieldProps} from '@mui/material';
@@ -10,7 +11,6 @@ import { Box } from '@mui/system';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 
 // data related
-import { ConsentementApiService } from '@/api/ConsentementService';
 import { IConsentement } from '@/models/Consentement';
 
 // validation
@@ -18,13 +18,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
 //react et react-hook-form
-import { useParams } from 'react-router-dom';
 import { useForm ,Controller } from 'react-hook-form';
 import { useQuery } from 'react-query'
 
-function PageConsentement() {
+function PageAddConsentement() {
 
-  const {id} = useParams();
   const blabla="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun ut labore et dolore magna aliqua.";
   
   const validationSchema = Yup.object().shape({
@@ -48,27 +46,8 @@ function PageConsentement() {
     {name:'Benard',firstname:'Joe' ,telephone: '222-735-1221',email: 'joe.benard@hotmail.com'},
   ];  
 
-  const fetchConsentement = async () =>{
-    if (id){
-      console.log("fetching Consentement");
-      const response = await ConsentementApiService.getConsentementById(Number(id));
-      const consentement=response.data;
-      console.log("fetch response.data",consentement);
-      reset(response.data);
-      return consentement;
-    }
-    return null;
-  }   
- 
-  // const [data, setData] = useState<IConsentement>();
-  const {isError, isLoading, data, error} = useQuery(
-    'consentement',
-    fetchConsentement,
-    {staleTime:60000}
-  );
-
   const { handleSubmit, control, reset, formState: { errors } } = useForm<IConsentement>({
-    defaultValues:{...data},
+    defaultValues:{},
     resolver:yupResolver(validationSchema)
   });
 
@@ -78,21 +57,13 @@ function PageConsentement() {
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // },[]);   
   
-  if (isLoading){
-    console.log("Loading...",data);
-    return <div>Chargement...</div>
-  }
-  if (isError){
-    console.log("Erreur...",error);
-    return <div>Erreur...</div>
-  }
-
   const onSubmit=(data:IConsentement)=> {
     console.log(data);
   }
   const showClearIcon="none";
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+
   };
 
   return (
@@ -104,6 +75,35 @@ function PageConsentement() {
         <CardContent>
           <Typography variant="h4" align="center">Consentement</Typography>
             <Box height={16}/>
+             <Card sx={{ width: '100%', maxWidth: 600 }}>
+              <CardContent>
+                <Typography variant="h7" align="left">{blabla} </Typography>
+              </CardContent>
+             </Card>
+              <FormControlLabel control={<Checkbox />}
+              label="J'ai lu" />
+              <TextField
+                size="small"
+                fullWidth                
+                variant="outlined"
+                onChange={handleChange}
+                InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment
+                    position="end"
+                    style={{ display: showClearIcon }}
+                  >
+                  <ClearIcon />
+                  </InputAdornment>
+                )
+              }}
+            />
+
             <Box height={16}/>    
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -146,60 +146,26 @@ function PageConsentement() {
                )}
             />
             <Box height={16}/>
-            <Controller 
-               name="equipeelu"
-               control={control}
-               render={({field})=> (
-                 <TextField {...field} 
-                  error={!!errors.equipeelu}
-                  helperText={errors.equipeelu ? errors.equipeelu?.message:''}
-                  label="Équipe élu"
-                 />
-               )}
-            />
-            <Box height={16}/>
-
-            <Controller 
-               name="demandeDate"
-               control={control}
-               render={({field})=> (
-                 <TextField {...field} 
-                  error={!!errors.demandeDate}
-                  helperText={errors.demandeDate ? errors.demandeDate?.message:''}
-                  label="Date de la demande"
-                 />
-               )}
-            />
-
-            <Box height={16}/>  
-
-            <Controller 
-             control={control}            
-             name="relanceDate"
-             render={({ field: { ref, onBlur, name,...field} }) => (
-              
-              <DatePicker 
-                {...field}
-                inputRef={ref}
-                label="Date relance" 
-                renderInput={(inputProps) => (
-                  <TextField
-                    {...inputProps}
-                    onBlur={onBlur}
-                    name={name}
-                    error={!!errors.relanceDate}
-                    helperText={errors.relanceDate ? errors.relanceDate?.message:''}                
-                  />
-                )}
-                format="YYYY-MM-DD"
-                KeyboardButtonProps={{"aria-label": "change date"}}
-                error={!!errors.relanceDate}
-                helperText={errors.relanceDate ? errors.relanceDate?.message:''}                
-              />
-             )}
-            />
-
+            <FormControl fullWidth>
+              <InputLabel id="equipeelu">Équipe Élu</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // value={equipeelu}
+                label="Équipe élu"
+              >
+                <MenuItem>District-01 A. Beauséjour</MenuItem>
+                <MenuItem>District-02 G. Maraut</MenuItem>
+                <MenuItem>District-02 H. Beauchamp</MenuItem>
+              </Select>
+            </FormControl>
             <Box height={16}/>   
+            <TextareaAutosize
+              aria-label="minimum height"
+              minRows={4}
+              placeholder="Message personnalisé dans le courriel"
+              style={{ width: 600}}
+            />
         </CardContent>
         <CardActions>
           <Button size="small">Annuler</Button>
@@ -207,11 +173,11 @@ function PageConsentement() {
         </CardActions>
       </Card>
       </form>
-          </LocalizationProvider>                        
+      </LocalizationProvider>                        
       </FullSizeCenteredFlexBox>
     </>
   );
 }
 
-export default PageConsentement;
+export default PageAddConsentement;
 
