@@ -7,7 +7,7 @@ const FlexBox = styled(Box)({
 
 const CenteredFlexBox = styled(FlexBox)({
   justifyContent: 'center',
-  alignItems: 'center',
+  alignItems: 'ceflex-start',
 });
 
 const FullSizeCenteredFlexBox = styled(CenteredFlexBox)({

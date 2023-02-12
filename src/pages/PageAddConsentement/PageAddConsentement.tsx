@@ -2,13 +2,15 @@
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Box } from '@mui/system';
+import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, TextField, TextFieldProps} from '@mui/material';
+
+import { FullSizeCenteredFlexBox } from '@/components/styled';
 
 // import DatePicker  from @mui/x-date-pickers;
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, TextField, TextFieldProps} from '@mui/material';
-import { Box } from '@mui/system';
-import { FullSizeCenteredFlexBox } from '@/components/styled';
 
 // data related
 import { IConsentement } from '@/models/Consentement';
@@ -20,6 +22,7 @@ import * as Yup from 'yup';
 //react et react-hook-form
 import { useForm ,Controller } from 'react-hook-form';
 import { useQuery } from 'react-query'
+import { useState } from 'react';
 
 function PageAddConsentement() {
 
@@ -42,15 +45,23 @@ function PageAddConsentement() {
   })
 
   const searchRows = [
-    {name:'Beef',firstname:'Joe' ,telephone: '345-345-5554',email: 'joe.beef@gMale.com'},
-    {name:'Benard',firstname:'Joe' ,telephone: '222-735-1221',email: 'joe.benard@hotmail.com'},
+    {id:1,name:'Beef',firstname:'Joe' ,telephone: '345-345-5554',email: 'joe.beef@gMale.com'},
+    {id:2,name:'Benard',firstname:'Joe' ,telephone: '222-735-1221',email: 'joe.benard@hotmail.com'},
   ];  
+
+  const columns: GridColDef[] = [
+    { field: 'name', headerName: 'Nom', width: 70 },
+    { field: 'firstname', headerName: 'Prénom', width: 130 },
+    { field: 'telephone', headerName: 'Téléphone', width: 130 },
+    { field: 'email',    headerName: 'Courriel',   width: 90},
+  ];
 
   const { handleSubmit, control, reset, formState: { errors } } = useForm<IConsentement>({
     defaultValues:{},
     resolver:yupResolver(validationSchema)
   });
 
+  const [selectedRequerant,setSelectedRequerant]=useState("");
 
   // useEffect(() => {
   //   console.log("mounted.")
@@ -63,9 +74,13 @@ function PageAddConsentement() {
   const showClearIcon="none";
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-
+     
   };
 
+  const handleRowClick = (param, event) => {
+    console.log(`${param.row.firstname} ${param.row.name}`);
+    setSelectedRequerant(`${param.row.firstname} ${param.row.name}`);
+  };
   return (
     <>
       <FullSizeCenteredFlexBox>
@@ -84,6 +99,7 @@ function PageAddConsentement() {
               label="J'ai lu" />
               <TextField
                 size="small"
+                label="Courriel"
                 fullWidth                
                 variant="outlined"
                 onChange={handleChange}
@@ -105,46 +121,17 @@ function PageAddConsentement() {
             />
 
             <Box height={16}/>    
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Nom</TableCell>
-                    <TableCell>Prénom</TableCell>
-                    <TableCell>Téléphone</TableCell>
-                    <TableCell>Courriel</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {searchRows.map((row) => (
-                    <TableRow
-                      key={row.name}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="left">{row.firstname}</TableCell>
-                      <TableCell align="left">{row.telephone}</TableCell>
-                      <TableCell align="left">{row.email}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>   
-            <Box height={16}/>          
-            <Controller 
-               name="requerant"
-               control={control}
-               render={({field})=> (
-                 <TextField {...field} 
-                  fullWidth
-                  error={!!errors.requerant}
-                  helperText={errors.requerant ? errors.requerant?.message:''}
-                  label="Requérant"
-                 />
-               )}
+            <div style={{height:200, width:'100%'}}>
+            <DataGrid
+               rows={searchRows}
+               columns={columns}                
+               pageSize={3}
+               hideFooter={true}
+               onRowClick={handleRowClick}
             />
+            </div>
+            <Box height={16}/>   
+            <Typography variant="h7" align="center">{selectedRequerant}</Typography>       
             <Box height={16}/>
             <FormControl fullWidth>
               <InputLabel id="equipeelu">Équipe Élu</InputLabel>
@@ -167,9 +154,14 @@ function PageAddConsentement() {
               style={{ width: 600}}
             />
         </CardContent>
-        <CardActions>
+        <CardActions disableSpacing
+           sx={{
+             alignSelf: "stretch",
+             display: "flex",
+             justifyContent: "flex-end",
+             }}>
           <Button size="small">Annuler</Button>
-          <Button type="submit" variant="contained" color="primary">Envoyer</Button>          
+          <Button type="submit" variant="contained" color="primary" disabled={selectedRequerant===""}>Envoyer</Button>          
         </CardActions>
       </Card>
       </form>
