@@ -73,11 +73,6 @@ function PageConsentement() {
   });
 
 
-  // useEffect(() => {
-  //   console.log("mounted.")
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[]);   
-  
   if (isLoading){
     console.log("Loading...",data);
     return <div>Chargement...</div>

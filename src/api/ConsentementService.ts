@@ -20,11 +20,11 @@ export class ConsentementApi extends HttpApiService {
       return response
     };
   
-    createConsentement = (data: IConsenement) => {
+    createConsentement = (data: IConsentement) => {
       return super.create(`${CONSENTEMENT_ENDPOINT}`, data);
     };
   
-    updateConsentement = (data: IConsenement) => {
+    updateConsentement = (data: IConsentement) => {
       return super.update(`${CONSENTEMENT_ENDPOINT}`, data);
     };
     //#endregion Contact

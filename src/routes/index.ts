@@ -22,6 +22,12 @@ const routes: Routes = {
     title: 'Requetes Citoyennes',
     icon: GroupsIcon,
   },
+  [Pages.PageRequeteCitoyenne]: {
+    path: '/requetecitoyenne/:id',
+    component: asyncComponentLoader(() => import('@/pages/PageRequeteCitoyenne')),
+    // title: 'Requête Citoyenne',
+    icon: GroupsIcon,
+  },
   [Pages.PageConsentements]: {
     path: '/consentements',
     component: asyncComponentLoader(() => import('@/pages/PageConsentements')),
