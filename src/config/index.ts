@@ -6,8 +6,6 @@ const title = 'Portail Élu';
 
 const email = 'octaconcepts.e.dela@laval.ca';
 
-const repository = 'https://github.com/suren-atoyan/react-pwa';
-
 const messages = {
   app: {
     crash: {
@@ -57,7 +55,6 @@ export {
   notifications,
   dateFormat,
   messages,
-  repository,
   email,
   title,
   defaultMetaTags,

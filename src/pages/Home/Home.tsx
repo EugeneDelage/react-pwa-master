@@ -2,32 +2,22 @@ import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 import useOrientation from '@/hooks/useOrientation';
 
-import muiLogo from './logos/mui.svg';
-import pwaLogo from './logos/pwa.svg';
-import reactLogo from './logos/react_ed.svg';
-import recoilLogo from './logos/recoil.svg';
-import rrLogo from './logos/rr.svg';
-import tsLogo from './logos/ts.svg';
-import viteLogo from './logos/vite.svg';
+// import reactLogo from './logos/react_ed.svg';
+import levisLogo from './logos/levislogo.png';
 import { Image } from './styled';
 
 function Home() {
   const isPortrait = useOrientation();
 
-  const width = isPortrait ? '40%' : '30%';
-  const height = isPortrait ? '30%' : '40%';
+  const width = isPortrait ? '30%' : '20%';
+  const height = isPortrait ? '20%' : '30%';
 
   return (
     <>
       <Meta title="Page principale" />
       <FullSizeCenteredFlexBox flexDirection={isPortrait ? 'column' : 'row'}>
-        <Image alt="react-router" src={rrLogo} />
-        <Image alt="vite" src={viteLogo} />
-        <Image alt="typescript" src={tsLogo} />
-        <Image alt="react" src={reactLogo} sx={{ width, height }} />
-        <Image alt="mui" src={muiLogo} />
-        <Image alt="recoil" src={recoilLogo} />
-        <Image alt="pwa" src={pwaLogo} />
+        {/* <Image alt="react" src={reactLogo} sx={{ width, height }} /> */}
+        <Image alt="react" src={levisLogo} sx={{ width, height }} />        
       </FullSizeCenteredFlexBox>
     </>
   );

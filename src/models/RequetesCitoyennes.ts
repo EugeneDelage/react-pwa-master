@@ -11,5 +11,9 @@ export interface IRequeteCitoyenne {
     nodemandeelu: string;
     datesuiviDG:Date;
     sujet:string;
+    telephone1:string;
+    telephone2:string;
+    langue:string;
+    district:string;
     statutdemande:string;
 }

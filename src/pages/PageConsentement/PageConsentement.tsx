@@ -20,7 +20,7 @@ import * as Yup from 'yup';
 //react et react-hook-form
 import { useParams } from 'react-router-dom';
 import { useForm ,Controller } from 'react-hook-form';
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 function PageConsentement() {
 
