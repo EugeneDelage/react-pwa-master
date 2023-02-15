@@ -25,7 +25,7 @@ import * as React from 'react';
 // data
 import { ConsentementApiService } from '@/api/ConsentementService';
 import { IConsentement } from '@/models/Consentement';
-import { Tooltip } from '@mui/material';
+import { Card, CardActions, CardContent, CardHeader, Container, Tooltip } from '@mui/material';
 
 
 function PageConsentements() {
@@ -99,24 +99,37 @@ function PageConsentements() {
 
   return (
     <>
-      {/* <Meta title="Consentements" /> */}
-    
+      <Meta title="Consentements" />
       <FullSizeCenteredFlexBox>
-        <Box sx={{height:400, width:'100%'}}>
-        <Box textAlign='center'>
-          <Button variant='contained' onClick={createConsentement}>
-            Demander un consentement
-          </Button>
-        </Box>
-      
-        <Typography  variant="h4" sx={{ textAlign:"center", mt: 2 ,mb:3, color: (theme) => theme.palette.info.main }}>
-          Consentements
-        </Typography>
-        <DataGrid
-          columns={columns}
-          rows={consentements}
-        />
-        </Box>
+        <Box sx={{ height:'100%',width:'100%' }}>
+
+        <Card style={{height:'100%',width:'100%'}}>
+          <CardHeader 
+            title={
+              <Typography variant="h4" align='center'>
+                 Consentements
+              </Typography>
+            }>
+          </CardHeader>
+          <CardContent>  
+            <Container sx={{  height:`calc(100vh - 250px)`}}>
+              <DataGrid
+                columns={columns}
+                rows={consentements}
+              />
+            </Container>
+          </CardContent>
+          <CardActions sx={{
+             alignSelf: "stretch",
+             display: "flex",
+             justifyContent: "center",
+             }}>
+            <Button variant='contained' onClick={createConsentement} >
+              Demander un consentement
+            </Button>
+          </CardActions>
+        </Card>
+        </Box>        
         <Dialog
           fullScreen={fullScreen}
           open={open}

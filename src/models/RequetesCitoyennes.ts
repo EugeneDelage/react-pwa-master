@@ -4,6 +4,7 @@ export interface IRequeteCitoyenne {
     noRequete:string;
     requerant:string;
     emplacement:string;
+    adresse:string;
     typerequete:string;
     sommaire:string; 
     statut:string;

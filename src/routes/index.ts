@@ -4,6 +4,7 @@ import ThreePIcon from '@mui/icons-material/ThreeP';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HttpsIcon from '@mui/icons-material/Https';
+import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
 
 import asyncComponentLoader from '@/utils/loader';
 
@@ -57,6 +58,12 @@ const routes: Routes = {
     component: asyncComponentLoader(() => import('@/pages/PageDemandesElus')),
     title: 'Demandes Elus',
     icon: ThreePIcon,
+  },
+  [Pages.PageDemandeEluAdd]: {
+    path: '/demandeeluadd',
+    component: asyncComponentLoader(() => import('@/pages/PageDemandeEluAdd')),
+    title: 'Créer une demande',
+    icon: ContactEmergencyIcon,
   },
   [Pages.PageUserProfile]: {
     path: '/userprofile',

@@ -11,6 +11,7 @@ enum Pages {
   PageAddConsentement,  
   PageConsentement,    
   PageDemandesElus,
+  PageDemandeEluAdd,  
   PageUserProfile,
   PageSignIn,
   NotFound,

@@ -16,7 +16,7 @@ export class RequeteCitoyenneActivitesApi extends HttpApiService {
     };
   
     getAllRequeteCitoyenneActivites = (requeteId: number) => {
-      const response = this.get(`${REQUETECITOYENNEACTIVITES_ENDPOINT}/${requeteId}`);
+      const response = this.get(`${REQUETECITOYENNEACTIVITES_ENDPOINT}/?requeteId=${requeteId}`);
       return response
     };
   

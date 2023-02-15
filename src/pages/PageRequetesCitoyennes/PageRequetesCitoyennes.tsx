@@ -9,7 +9,7 @@ import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Box } from '@mui/system';
-import { Card, CardContent, CardHeader, Tooltip } from '@mui/material';
+import { Card, CardContent, CardHeader, Tooltip, Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { IRequeteCitoyenne } from '@/models/RequetesCitoyennes';
 import { RequeteCitoyenneApiService } from '@/api/RequeteCitoyenneService';
@@ -264,18 +264,6 @@ function PageRequetesCitoyennes() {
   ],[openRequete],
   );  
 
-  // const rows = [
-  //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  //   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  //   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  //   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  //   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  //   { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  //   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  //   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  //   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  // ];
-  
   const [value, setValue] = useState('1');
   
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -288,7 +276,11 @@ function PageRequetesCitoyennes() {
       <FullSizeCenteredFlexBox>
       <Card style={{height:'100%',width:'100%'}}>
         <CardHeader 
-          title="Requêtes citoyennes">
+          title={
+            <Typography variant="h4" align='center'>
+               Requêtes citoyennes
+            </Typography>
+          }>
         </CardHeader>
         <CardContent>
           <TabContext value={value}>
