@@ -2,11 +2,12 @@
 import Meta from "@/components/Meta";
 import { FullSizeCenteredFlexBox } from "@/components/styled";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Button, Card, CardActions, CardContent, CardHeader, Divider, FormControl, Grid, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardHeader, Divider, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 // react
 import { useCallback, useState } from "react";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 function PageDemandeEluAdd() {
     const [equipe, setEquipe] = useState('');
@@ -23,6 +24,12 @@ function PageDemandeEluAdd() {
     const handleChangeTypeDemande= (event: SelectChangeEvent) => {
         setTypeDemande(event.target.value as string);
     };      
+    const addMessage= () => {
+      setTimeout(() => {
+        console.log("addMessage");
+      });
+    };
+    
     const joinFile= () => {
       setTimeout(() => {
         console.log("joinFile");
@@ -44,7 +51,36 @@ function PageDemandeEluAdd() {
         console.log("cancelDemande");
       });
     };
+
+    const messageElusColumns: GridColDef[] = [
+      {
+        field: 'typeAction',
+        headerName: "Type d''action",
+        type: 'number',
+        width: 110,
+        editable: false,
+      },
+      {
+        field: 'statut',
+        headerName: 'Statut',
+        width: 250,
+        editable: false,
+      },
+      {
+        field: 'dateSuiviPlanifie',
+        headerName: 'Date suivi planifié',
+        width: 150,
+        editable: false,
+      },
+    ];
+  
+    const messageElusRows = [
+      { id: 1, dateSuiviPlanifie: '2023-04-05', statut: 'statut 1', typeAction:'action 1' },
+      { id: 2, dateSuiviPlanifie: '2023-04-05', statut: 'statut 2', typeAction:'action 2' },
+      { id: 3, dateSuiviPlanifie: '2023-04-05', statut: 'statut 3', typeAction:'action 3' },
       
+    ];
+  
     return (
       <>
         <Meta title="Demande Elu" />
@@ -61,7 +97,7 @@ function PageDemandeEluAdd() {
                     </TabList>
                   </Box>
                   <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="1">  
-                     <Grid container spacing={3}>
+                     <Grid container spacing={1}>
                         <Grid item xs={12} sm={6}>
                            <TextField  multiline variant="filled" 
                              fullWidth
@@ -124,9 +160,82 @@ function PageDemandeEluAdd() {
                              defaultValue="En cours"
                            />
                         </Grid>
+                        <Grid item xs={12} sm={12}>
+                           <TextField multiline variant="filled" 
+                             fullWidth
+                             label="Sujet"
+                             defaultValue="..."
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                           <TextField multiline variant="filled" 
+                             fullWidth
+                             label="Description"
+                             defaultValue=""
+                           />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                           <TextField variant="filled" 
+                             fullWidth
+                             label="Fichier(s) joint(s):"
+                             defaultValue=""
+                             InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <AttachFileIcon />
+                                </InputAdornment>
+                              ),
+                            }}
+                           />
+                        </Grid>
                     </Grid>
               </TabPanel>
               <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="2">
+                <Grid container spacing={1}>
+                  <Grid item xs={12} sm={6}>
+                      <TextField  variant="filled" 
+                        fullWidth
+                      defaultValue="2023-01-02"
+                      disabled
+                      label="Date de transmission"
+                      />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                      <TextField variant="filled" 
+                        fullWidth
+                        disabled
+                        defaultValue="2022-12-12"
+                        label="Date prise en charge ou retour à l'élu"
+                        />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                      <TextField  variant="filled" 
+                        fullWidth
+                      defaultValue="2023-01-02"
+                      disabled
+                      label="Date suivi planifiée DG"
+                      />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                      <TextField variant="filled" 
+                        fullWidth
+                        disabled
+                        defaultValue="2022-12-12"
+                        label="DDate répondue"
+                        />
+                  </Grid>
+                  <Grid item xs={12} sm={12}>
+                  <div style={{ height: 150,flexGrow: 1 }}>
+                    <DataGrid
+                      columns={messageElusColumns}
+                      rows={messageElusRows}
+                      hideFooter={true}
+                      rowHeight={25}
+                    />
+                    </div>
+                  </Grid>
+                </Grid>
+
               </TabPanel>
              </TabContext>
              </Box>      
@@ -136,6 +245,11 @@ function PageDemandeEluAdd() {
              display: "flex",
              justifyContent: "center",
              }}>
+             { tabValue==='2' ? 
+               <Button variant='contained' onClick={addMessage} >
+                 Ajouter un message
+               </Button> : null}
+  
             <Button variant='contained' onClick={joinFile} >
               Joindre un fichier
             </Button>

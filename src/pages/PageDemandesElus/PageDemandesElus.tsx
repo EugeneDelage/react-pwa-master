@@ -4,7 +4,7 @@ import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Container, Tab, Tooltip } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { DataGrid, GridColumns } from '@mui/x-data-grid';
+import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 // API
@@ -36,7 +36,7 @@ function PageDemandesElus() {
   const openDemandeElu = useCallback(
     (id: GridRowId) => () => {
       setTimeout(() => {
-        navigate(`/demandeelu/${id}`);
+        navigate(`/demandeeluedit/${id}`);
       });
     },
     [],

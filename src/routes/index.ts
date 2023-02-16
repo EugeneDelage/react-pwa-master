@@ -65,6 +65,12 @@ const routes: Routes = {
     title: 'Créer une demande',
     icon: ContactEmergencyIcon,
   },
+  [Pages.PageDemandeEluEdit]: {
+    path: '/demandeeluedit/:id',
+    component: asyncComponentLoader(() => import('@/pages/PageDemandeEluEdit')),
+//  title: 'Modifier une demande',
+    icon: ContactEmergencyIcon,
+  },
   [Pages.PageUserProfile]: {
     path: '/userprofile',
     component: asyncComponentLoader(() => import('@/pages/PageUserProfile')),
