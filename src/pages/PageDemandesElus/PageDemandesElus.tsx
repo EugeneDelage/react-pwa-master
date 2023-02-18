@@ -2,7 +2,7 @@
 import Typography from '@mui/material/Typography';
 import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Container, Tab, Tooltip } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Tab, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 function PageDemandesElus() {
-
+  
   const [tabValue, setTabValue] = useState('1');
   const [demandeselus, setDemandesElus] = useState<IDemandeElu>([]);
   type Row = typeof demandeselus[number];
@@ -165,7 +165,8 @@ function PageDemandesElus() {
             </Button>
           </CardActions>
         </Card> 
-      </Box>        
+      </Box>       
+ 
       </FullSizeCenteredFlexBox>
     </>
   );

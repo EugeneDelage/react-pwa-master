@@ -2,16 +2,26 @@
 import Meta from "@/components/Meta";
 import { FullSizeCenteredFlexBox } from "@/components/styled";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Button, Card, CardActions, CardContent, CardHeader, Divider, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, Card, CardActions, CardContent, CardHeader, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, useMediaQuery } from "@mui/material";
+import { Box, useTheme } from "@mui/system";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 // react
 import { useCallback, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 function PageDemandeEluAdd() {
-    const [equipe, setEquipe] = useState('');
-    const [typeDemande,setTypeDemande] = useState('');
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    console.log('Close button');
+    setOpen(false);
+  };
+
+  const [equipe, setEquipe] = useState('');
+  const [typeAction, setTypeAction] = useState('');
+  const [typeDemande,setTypeDemande] = useState('');
 
     const [tabValue, setTabValue] = useState('1');
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -21,11 +31,15 @@ function PageDemandeEluAdd() {
     const handleChangeEquipe = (event: SelectChangeEvent) => {
         setEquipe(event.target.value as string);
     };      
+    const handleChangeTypeAction= (event: SelectChangeEvent) => {
+      setEquipe(event.target.value as string);
+    }
     const handleChangeTypeDemande= (event: SelectChangeEvent) => {
         setTypeDemande(event.target.value as string);
     };      
     const addMessage= () => {
       setTimeout(() => {
+        setOpen(true);
         console.log("addMessage");
       });
     };
@@ -264,7 +278,53 @@ function PageDemandeEluAdd() {
             </Button>
           </CardActions>
           </Card>
-        </Box>  
+        </Box>
+        <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+        <DialogTitle id="responsive-dialog-title">
+          {"Ajout d'un message"}
+        </DialogTitle>
+        <DialogContent>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={12}>
+                <InputLabel id="ilequipe">Type Action</InputLabel>
+                    <Select
+                       fullWidth
+                       labelId="iltypeaction"
+                       id="demo-simple-select"
+                       value={equipe}
+                       label="Type Action"
+                       onChange={handleChangeTypeAction}
+                      >
+                       <MenuItem value={1}>Type action 1</MenuItem>
+                       <MenuItem value={2}>Type action 2</MenuItem>
+                       <MenuItem value={3}>Type action 3</MenuItem>
+                   </Select> 
+             </Grid>
+             <Grid item xs={12} sm={12}>
+             <TextField  multiline variant="filled" 
+                 fullWidth
+                 defaultValue="Description" />
+             </Grid>
+          </Grid>
+          <DialogContentText>
+            Inscrivez une description.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Annuler
+          </Button>
+          <Button onClick={handleClose} autoFocus>
+            Ajouter
+          </Button>
+        </DialogActions>
+      </Dialog>
+  
         </FullSizeCenteredFlexBox>
       </>
     );
