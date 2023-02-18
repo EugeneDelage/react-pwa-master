@@ -3,13 +3,12 @@ import { FullSizeCenteredFlexBox } from '@/components/styled';
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import PersonIcon from '@mui/icons-material/Person';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Avatar, Box, Button, Card, CardContent, CardHeader, Divider, Grid, Paper, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Button, Card, CardContent, CardHeader, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid, Paper, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import "./PageRequeteCitoyenne.css";
 
 // API
 import { RequeteCitoyenneApiService } from '@/api/RequeteCitoyenneService';
-import { IRequeteCitoyenne } from '@/models/RequetesCitoyennes';
 import { IRequeteCitoyenneActivite } from '@/models/RequeteCitoyenneActivite';
 import { RequeteCitoyenneActivitesApiService } from '@/api/RequeteCitoyenneActivitesService';
 
@@ -18,8 +17,11 @@ import { useCallback, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { minWidth } from '@mui/system';
 
 function PageRequeteCitoyenne() {
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const noteColumns: GridColDef[] = [
     {
@@ -42,6 +44,7 @@ function PageRequeteCitoyenne() {
       editable: false,
     },
   ];
+  const [openAddNoteDlg, setOpenAddNoteDlg] = useState(false);
 
   const noteElusRows = [
     { id: 1, noteDate: '2023-04-05', note: 'note un', eluName:'Jean Beaupré' },
@@ -58,6 +61,22 @@ function PageRequeteCitoyenne() {
     },
     [],
   );
+  const creeDemande = useCallback(
+    () => () => {
+      setTimeout(() => {
+        navigate(`/demandeeluadd/`);
+      });
+    },
+    [],
+  );
+  const openAddNoteDialog = () => {
+    setOpenAddNoteDlg(true);
+  };
+  const handleCloseAddNoteDlg = () => {
+    console.log('Close button');
+    setOpenAddNoteDlg(false);
+  };
+
   const demandeEluColumns: GridColDef[] = [
     {
       field: 'sujet',
@@ -252,8 +271,8 @@ function PageRequeteCitoyenne() {
                  justifyContent="space-around"
                  alignItems="center"
                  sx={{height:25}}>                
-                  <Button  variant="contained" >Créer une demande à la DG</Button>
-                  <Button  variant="contained" >Ajouter une note</Button>
+                  <Button onClick={creeDemande()} variant="contained" >Créer une demande à la DG</Button>
+                  <Button onClick={openAddNoteDialog} variant="contained" >Ajouter une note</Button>
                 </Box>
               </TabPanel>
               <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="4">
@@ -277,6 +296,37 @@ function PageRequeteCitoyenne() {
               </TabPanel>
             </TabContext>
           </Box>
+          <Dialog
+            fullScreen={fullScreen}
+            open={openAddNoteDlg}
+            onClose={handleCloseAddNoteDlg}
+            aria-labelledby="responsive-dialog-title"
+          >
+          <DialogTitle id="responsive-dialog-title">
+            {"Ajout d'une note"}
+          </DialogTitle>
+          <DialogContent sx={{ minWidth:500}} 
+            >
+          <Grid container spacing={1}>
+             <Grid item xs={12} sm={12}>
+             <TextField  multiline variant="filled" 
+                 fullWidth
+                 defaultValue="Description" />
+             </Grid>
+          </Grid>
+          <DialogContentText>
+            Inscrivez une note.
+          </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={handleCloseAddNoteDlg}>
+              Annuler
+            </Button>
+            <Button onClick={handleCloseAddNoteDlg} autoFocus>
+              Sauvegarder
+            </Button>
+          </DialogActions>
+        </Dialog>
 
        </FullSizeCenteredFlexBox>
     </>

@@ -44,7 +44,7 @@ function PageRequetesCitoyennes() {
 
   const colSansSuivi= useMemo<GridColumns<Row>>(
     ()=>[
-    { field: 'id', headerName: 'ID', width: 90 },
+    // { field: 'id', headerName: 'ID', width: 90 },
     {
       field: 'lue',
       headerName: 'Lue',
@@ -58,7 +58,7 @@ function PageRequetesCitoyennes() {
     {
       field: 'noRequete',
       headerName: 'Numéro requête',
-      width: 150,
+      width: 110,
       editable: false,
     },
     {
