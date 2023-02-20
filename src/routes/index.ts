@@ -29,27 +29,27 @@ const routes: Routes = {
     // title: 'Requête Citoyenne',
     icon: GroupsIcon,
   },
-  [Pages.PageConsentements]: {
+  [Pages.Consentements]: {
     path: '/consentements',
-    component: asyncComponentLoader(() => import('@/pages/PageConsentements')),
+    component: asyncComponentLoader(() => import('@/pages/Consentements')),
     title: 'Consentements',
     icon: RecommendIcon,
   },
-  [Pages.PageConsentement]: {
+  [Pages.Consentement]: {
     path: '/consentement/:id',
-    component: asyncComponentLoader(() => import('@/pages/PageConsentement')),
+    component: asyncComponentLoader(() => import('@/pages/Consentement')),
     // title: 'Consentement',
     icon: RecommendIcon,
   },
-  [Pages.PageAddConsentement]: {
+  [Pages.AddConsentement]: {
     path: '/consentementadd/',
-    component: asyncComponentLoader(() => import('@/pages/PageAddConsentement')),
+    component: asyncComponentLoader(() => import('@/pages/AddConsentement')),
     // title: 'Consentement',
     icon: RecommendIcon,
   },
-  [Pages.PageConsentement]: {
+  [Pages.Consentement]: {
     path: '/consentement/',
-    component: asyncComponentLoader(() => import('@/pages/PageConsentement')),
+    component: asyncComponentLoader(() => import('@/pages/Consentement')),
     // title: 'Consentement',
     icon: RecommendIcon,
   },

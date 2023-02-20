@@ -22,7 +22,7 @@ import { useParams } from 'react-router-dom';
 import { useForm ,Controller } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query'
 
-function PageConsentement() {
+function Consentement() {
 
   const {id} = useParams();
   const blabla="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun ut labore et dolore magna aliqua.";
@@ -208,5 +208,5 @@ function PageConsentement() {
   );
 }
 
-export default PageConsentement;
+export default Consentement;
 

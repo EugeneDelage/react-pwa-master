@@ -28,7 +28,7 @@ import { IConsentement } from '@/models/Consentement';
 import { Card, CardActions, CardContent, CardHeader, Container, Tooltip } from '@mui/material';
 
 
-function PageConsentements() {
+function Consentements() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -159,4 +159,4 @@ function PageConsentements() {
   );
 }
 
-export default PageConsentements;
+export default Consentements;

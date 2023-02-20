@@ -24,7 +24,7 @@ import { useForm ,Controller } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react';
 
-function PageAddConsentement() {
+function AddConsentement() {
 
   const blabla="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun ut labore et dolore magna aliqua.";
   
@@ -171,5 +171,5 @@ function PageAddConsentement() {
   );
 }
 
-export default PageAddConsentement;
+export default AddConsentement;
 
