@@ -44,12 +44,12 @@ const themes: Record<Themes, ThemeOptions> = {
       background: {
         default: '#fafafa',
         paper: '#fff',
+        red:'#edabab',
       },
       primary: {
         main: '#3f51b5',
       },
     },
-
   },
 
   ),
@@ -60,10 +60,14 @@ const themes: Record<Themes, ThemeOptions> = {
       background: {
         default: '#111',
         paper: '#171717',
+        red:'#edabab',
       },
       primary: {
         main: '#333',
       },
+      red:{
+        main:'#edabab'
+      }
     },
   }),
 };

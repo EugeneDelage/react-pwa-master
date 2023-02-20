@@ -5,7 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Avatar, Box, Button, Card, CardContent, CardHeader, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid, Paper, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import "./PageRequeteCitoyenne.css";
+import "./RequeteCitoyenne.css";
 
 // API
 import { RequeteCitoyenneApiService } from '@/api/RequeteCitoyenneService';
@@ -19,7 +19,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { minWidth } from '@mui/system';
 
-function PageRequeteCitoyenne() {
+function RequeteCitoyenne() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -64,7 +64,7 @@ function PageRequeteCitoyenne() {
   const creeDemande = useCallback(
     () => () => {
       setTimeout(() => {
-        navigate(`/demandeeluadd/`);
+        navigate(`/demandeelu/`);
       });
     },
     [],
@@ -114,10 +114,9 @@ function PageRequeteCitoyenne() {
     
   ];
 
-
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-      setValue(newValue);
-    };
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
   
     const fetchRequeteCitoyenne = async () =>{
         if (id){
@@ -333,4 +332,4 @@ function PageRequeteCitoyenne() {
     );
 }
 
-export default PageRequeteCitoyenne;
+export default RequeteCitoyenne;

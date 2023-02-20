@@ -5,16 +5,16 @@ import type { SvgIconProps } from '@mui/material/SvgIcon';
 
 enum Pages {
   Home,
-  PageRequetesCitoyennes,
-  PageRequeteCitoyenne,  
+  RequetesCitoyennes,
+  RequeteCitoyenne,  
   Consentements,
   AddConsentement,  
   Consentement,    
-  PageDemandesElus,
-  PageDemandeEluAdd,  
-  PageDemandeEluEdit,
-  PageUserProfile,
-  PageSignIn,
+  DemandesElus,
+  DemandeElu,
+  DemandeEluEdit,
+  UserProfile,
+  SignIn,
   NotFound,
 }
 

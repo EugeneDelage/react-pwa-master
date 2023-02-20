@@ -21,6 +21,7 @@ import { HotKeysButton } from './styled';
 // import { getRandomJoke } from './utils';
 import { Link } from 'react-router-dom';
 import { title } from '@/config';
+import lavallogo from "../../pages/Home/logos/lavallogo.svg"
 
 function Header() {
 
@@ -64,12 +65,16 @@ function Header() {
             >
               <MenuIcon />
             </IconButton>
+            <Box
+              component="img"
+              src={lavallogo}
+            />                  
             <Button onClick={showNotification} color="info">
               {title}
             </Button>
           </FlexBox>
           <FlexBox>
-            <FlexBox>
+          <FlexBox>
               <Tooltip title="Clés de raccourcis" arrow>
                 <HotKeysButton
                   size="small"
@@ -80,21 +85,21 @@ function Header() {
                   alt + /
                 </HotKeysButton>
               </Tooltip>
-            </FlexBox>
-            <Divider orientation="vertical" flexItem />
-            <Tooltip title="Se connecter" arrow>
-              <Link to={'/SignIn'}>
-              <IconButton color="info" size="large">
-                <LockIcon />
-              </IconButton>
-              </Link>
-            </Tooltip>
-            <Divider orientation="vertical" flexItem />
-            <Tooltip title="Switch theme" arrow>
-              <IconButton color="info" edge="end" size="large" onClick={themeActions.toggle}>
-                <ThemeIcon />
-              </IconButton>
-            </Tooltip>
+          </FlexBox>
+          <Divider orientation="vertical" flexItem />
+          <Tooltip title="Se connecter" arrow>
+            <Link to={'/SignIn'}>
+            <IconButton color="info" size="large">
+              <LockIcon />
+            </IconButton>
+            </Link>
+          </Tooltip>
+          <Divider orientation="vertical" flexItem />
+          <Tooltip title="Switch theme" arrow>
+            <IconButton color="info" edge="end" size="large" onClick={themeActions.toggle}>
+              <ThemeIcon />
+            </IconButton>
+          </Tooltip>
           </FlexBox>
         </Toolbar>
       </AppBar>

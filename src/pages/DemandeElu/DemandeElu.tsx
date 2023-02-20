@@ -8,8 +8,10 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 // react
 import { useCallback, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { useParams } from "react-router";
 
-function PageDemandeEluAdd() {
+function DemandeElu() {
+  const {id} = useParams();
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -101,6 +103,10 @@ function PageDemandeEluAdd() {
         <FullSizeCenteredFlexBox>
         <Box sx={{ height:'100%',width:'100%' }}>
           <Card style={{height:'100%',width:'100%'}}>
+            {id
+            ? <CardHeader title="Demande élu -modification"></CardHeader>
+            : <CardHeader title="Demande élu -ajout"></CardHeader>
+            }
             <CardContent>
               <Box sx={{ border: 2, borderRadius: 5,marginTop:1,maxHeight:550,minWidth: 650 }}>
                 <TabContext value={tabValue}>
@@ -330,5 +336,5 @@ function PageDemandeEluAdd() {
     );
   }
   
-  export default PageDemandeEluAdd;
+  export default DemandeElu;
   

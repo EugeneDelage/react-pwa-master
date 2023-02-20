@@ -8,14 +8,20 @@ import { FullSizeCenteredFlexBox } from '@/components/styled';
 import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Box } from '@mui/system';
+import { Box, darken, lighten } from '@mui/system';
 import { Card, CardContent, CardHeader, Tooltip, Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { IRequeteCitoyenne } from '@/models/RequetesCitoyennes';
 import { RequeteCitoyenneApiService } from '@/api/RequeteCitoyenneService';
 
 
-function PageRequetesCitoyennes() {
+function RequetesCitoyennes() {
+
+  const getBackgroundColor = (color: string, mode: string) =>
+  mode === 'dark' ? darken(color, 0.6) : lighten(color, 0.6);
+
+  const getHoverBackgroundColor = (color: string, mode: string) =>
+  mode === 'dark' ? darken(color, 0.5) : lighten(color, 0.5);
 
   const [requetescitoyennes, setRequetescitoyennes] = useState<IRequeteCitoyenne>([]);
   type Row = typeof requetescitoyennes[number];
@@ -50,9 +56,9 @@ function PageRequetesCitoyennes() {
       headerName: 'Lue',
       width: 50,
       editable: false,
-      renderCell:(params)=> <Box sx={{ background: params.row.lue ? 'lightgreen': 'red' }}>
-          {params.row.lue? 'Oui': 'Non'}
-      </Box>,
+      renderCell:(params)=> <Box>
+                                {params.row.lue? 'Oui': 'Non'}
+                            </Box>,
 
     },
     {
@@ -115,7 +121,7 @@ function PageRequetesCitoyennes() {
   );
   const colAvecSuivi= useMemo<GridColumns<Row>>(
     ()=>[
-    { field: 'id', headerName: 'ID', width: 90 },
+    // { field: 'id', headerName: 'ID', width: 90 },
     {
       field: 'noRequete',
       headerName: 'Numéro requête',
@@ -190,7 +196,7 @@ function PageRequetesCitoyennes() {
   );
   const colToutes= useMemo<GridColumns<Row>>(
     ()=>[
-    { field: 'id', headerName: 'ID', width: 90 },
+    // { field: 'id', headerName: 'ID', width: 90 },
     {
       field: 'noRequete',
       headerName: 'Numéro requête',
@@ -292,6 +298,29 @@ function PageRequetesCitoyennes() {
              </TabList>
             </Box>
              <TabPanel sx={{  height:`calc(100vh - 182px)`}} value="1">              
+             <Box
+              sx={{
+                 height:`calc(100vh - 182px)`,
+                 width: '100%',
+                '& .dgrc-theme--Oui': {
+                  bgcolor: (theme) =>
+                    getBackgroundColor(theme.palette.background.default, theme.palette.mode),
+                  '&:hover': {
+                    bgcolor: (theme) =>
+                      getHoverBackgroundColor(theme.palette.background.default, theme.palette.mode),
+                  },
+                },
+                '& .dgrc-theme--Non': {
+                  bgcolor: (theme) =>
+                    getBackgroundColor(theme.palette.background.red, theme.palette.mode),
+                  '&:hover': {
+                    bgcolor: (theme) =>
+                      getHoverBackgroundColor( theme.palette.background.red,theme.palette.mode,
+                      ),
+                  },
+                },
+              }}>
+
              <DataGrid
                 rows={requetescitoyennes}
                 columns={colSansSuivi}                
@@ -299,7 +328,9 @@ function PageRequetesCitoyennes() {
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 20]}
+                getRowClassName={(params) => `dgrc-theme--${params.row.lue?"Oui":"Non"}`}
              />
+             </Box>
             </TabPanel>
           <TabPanel sx={{  height:`calc(100vh - 182px)`}} value="2">
               <DataGrid
@@ -329,6 +360,6 @@ function PageRequetesCitoyennes() {
   );
 }
 
-export default PageRequetesCitoyennes;
+export default RequetesCitoyennes;
 
 

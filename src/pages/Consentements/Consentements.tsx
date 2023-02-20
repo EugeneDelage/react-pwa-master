@@ -146,10 +146,10 @@ function Consentements() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button variant="contained" autoFocus onClick={handleClose}>
             Annuler
           </Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button variant="contained" onClick={handleClose} autoFocus>
             Confirmer
           </Button>
         </DialogActions>

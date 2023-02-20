@@ -52,43 +52,32 @@ function Consentement() {
     if (id){
       console.log("fetching Consentement");
       const response = await ConsentementApiService.getConsentementById(Number(id));
-      const consentement=response.data;
-      console.log("fetch response.data",consentement);
-      reset(response.data);
-      return consentement;
+      console.log("fetch response.data",response.data);
+      // reset(response.data);
+      return response.data;// consentement;
     }
     return null;
   }   
- 
-  // const [data, setData] = useState<IConsentement>();
-  const {isError, isLoading, data, error} = useQuery(
-    'consentement',
-    fetchConsentement,
-    {staleTime:60000}
-  );
-
-  const { handleSubmit, control, reset, formState: { errors } } = useForm<IConsentement>({
-    defaultValues:{...data},
+  const { handleSubmit, control, formState: { errors } } = useForm<IConsentement>({
     resolver:yupResolver(validationSchema)
   });
+ 
+  // const [data, setData] = useState<IConsentement>();
+  const ConsentementQuery = useQuery({queryKey:['consentement'], queryFn:fetchConsentement});
 
-
-  if (isLoading){
-    console.log("Loading...",data);
-    return <div>Chargement...</div>
+  if (ConsentementQuery.isLoading){
+    console.log("Chargement du consentement...");
+    return <div>Chargement du consentement...</div>
   }
-  if (isError){
-    console.log("Erreur...",error);
+  if (ConsentementQuery.error){
+    console.log("Erreur...",ConsentementQuery.error.message);
     return <div>Erreur...</div>
+
   }
 
   const onSubmit=(data:IConsentement)=> {
     console.log(data);
   }
-  const showClearIcon="none";
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-  };
 
   return (
     <>
@@ -137,6 +126,7 @@ function Consentement() {
                   error={!!errors.requerant}
                   helperText={errors.requerant ? errors.requerant?.message:''}
                   label="Requérant"
+                  value={ConsentementQuery.data.requerant}
                  />
                )}
             />

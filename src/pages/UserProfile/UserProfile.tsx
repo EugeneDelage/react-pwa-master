@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 
-function PageUserProfile() {
+function UserProfile() {
   return (
     <>
       <Meta title="Profil" />
@@ -27,4 +27,4 @@ function PageUserProfile() {
   );
 }
 
-export default PageUserProfile;
+export default UserProfile;

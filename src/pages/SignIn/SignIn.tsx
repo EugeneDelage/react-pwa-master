@@ -16,7 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ILogin } from "@/models/Login";
 
 
-function PageSignIn() {
+function SignIn() {
     const validationSchema = Yup.object().shape({
       email: Yup.string()
                 .required("L'adresse courriel est obligatoire")
@@ -96,4 +96,4 @@ function PageSignIn() {
   )
   }
   
-export default PageSignIn;
+export default SignIn;

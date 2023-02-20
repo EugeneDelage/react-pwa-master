@@ -17,16 +17,15 @@ const routes: Routes = {
     title: 'Page principale',
     icon: HomeIcon,
   },
-  [Pages.PageRequetesCitoyennes]: {
+  [Pages.RequetesCitoyennes]: {
     path: '/requetescitoyennes',
-    component: asyncComponentLoader(() => import('@/pages/PageRequetesCitoyennes')),
+    component: asyncComponentLoader(() => import('@/pages/RequetesCitoyennes')),
     title: 'Requetes Citoyennes',
     icon: GroupsIcon,
   },
-  [Pages.PageRequeteCitoyenne]: {
+  [Pages.RequeteCitoyenne]: {
     path: '/requetecitoyenne/:id',
-    component: asyncComponentLoader(() => import('@/pages/PageRequeteCitoyenne')),
-    // title: 'Requête Citoyenne',
+    component: asyncComponentLoader(() => import('@/pages/RequeteCitoyenne')),
     icon: GroupsIcon,
   },
   [Pages.Consentements]: {
@@ -48,38 +47,38 @@ const routes: Routes = {
     icon: RecommendIcon,
   },
   [Pages.Consentement]: {
-    path: '/consentement/',
+    path: '/consentement/:id',
     component: asyncComponentLoader(() => import('@/pages/Consentement')),
     // title: 'Consentement',
     icon: RecommendIcon,
   },
-  [Pages.PageDemandesElus]: {
+  [Pages.DemandesElus]: {
     path: '/demandeselus',
-    component: asyncComponentLoader(() => import('@/pages/PageDemandesElus')),
+    component: asyncComponentLoader(() => import('@/pages/DemandesElus')),
     title: 'Demandes Elus',
     icon: ThreePIcon,
   },
-  [Pages.PageDemandeEluAdd]: {
-    path: '/demandeeluadd',
-    component: asyncComponentLoader(() => import('@/pages/PageDemandeEluAdd')),
+  [Pages.DemandeElu]: {
+    path: "/demandeelu",
+    component: asyncComponentLoader(() => import('@/pages/DemandeElu')),
     title: 'Créer une demande',
     icon: ContactEmergencyIcon,
   },
-  [Pages.PageDemandeEluEdit]: {
-    path: '/demandeeluedit/:id',
-    component: asyncComponentLoader(() => import('@/pages/PageDemandeEluEdit')),
+  [Pages.DemandeEluEdit]: {
+    path: '/demandeelu/:id',
+    component: asyncComponentLoader(() => import('@/pages/DemandeElu')),
 //  title: 'Modifier une demande',
     icon: ContactEmergencyIcon,
   },
-  [Pages.PageUserProfile]: {
+  [Pages.UserProfile]: {
     path: '/userprofile',
-    component: asyncComponentLoader(() => import('@/pages/PageUserProfile')),
+    component: asyncComponentLoader(() => import('@/pages/UserProfile')),
     title: 'Profil',
     icon: AccountCircleIcon,
   },
-  [Pages.PageSignIn]: {
+  [Pages.SignIn]: {
     path: '/signin',
-    component: asyncComponentLoader(() => import('@/pages/PageSignIn')),
+    component: asyncComponentLoader(() => import('@/pages/SignIn')),
     title: 'Connect',
     icon: HttpsIcon,
   },

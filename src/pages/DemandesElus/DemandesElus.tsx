@@ -16,9 +16,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-
-function PageDemandesElus() {
-  
+function DemandesElus() {
   const [tabValue, setTabValue] = useState('1');
   const [demandeselus, setDemandesElus] = useState<IDemandeElu>([]);
   type Row = typeof demandeselus[number];
@@ -36,7 +34,7 @@ function PageDemandesElus() {
   const openDemandeElu = useCallback(
     (id: GridRowId) => () => {
       setTimeout(() => {
-        navigate(`/demandeeluedit/${id}`);
+        navigate(`/demandeelu/${id}`);
       });
     },
     [],
@@ -95,7 +93,7 @@ function PageDemandesElus() {
   const createDemandeElu= useCallback(
     () => {
       setTimeout(() => {
-        navigate(`/demandeeluadd/`);
+        navigate(`/demandeelu/`);
       });
     }
   );
@@ -172,4 +170,4 @@ function PageDemandesElus() {
   );
 }
 
-export default PageDemandesElus;
+export default DemandesElus;
