@@ -2,7 +2,7 @@
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, frFR, GridColDef } from '@mui/x-data-grid';
 import { Box } from '@mui/system';
 import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, TextField, TextFieldProps} from '@mui/material';
 
@@ -123,6 +123,7 @@ function AddConsentement() {
             <Box height={16}/>    
             <div style={{height:200, width:'100%'}}>
             <DataGrid
+               localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                rows={searchRows}
                columns={columns}                
                pageSize={3}

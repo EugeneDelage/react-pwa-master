@@ -16,7 +16,7 @@ import { RequeteCitoyenneActivitesApiService } from '@/api/RequeteCitoyenneActiv
 import { useCallback, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, frFR, GridColDef } from '@mui/x-data-grid';
 import { minWidth } from '@mui/system';
 
 function RequeteCitoyenne() {
@@ -243,6 +243,7 @@ function RequeteCitoyenne() {
               <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="3">
                 <Box sx={{height:200, width:'100%'}}>
                   <DataGrid
+                    localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                     sx={{ borderColor: 'red'}}
                     columns={noteColumns}
                     rows={noteElusRows}
@@ -255,6 +256,7 @@ function RequeteCitoyenne() {
 
                 <Box sx={{height:200, width:'100%'}}>
                   <DataGrid
+                    localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                     columns={demandeEluColumns}
                     rows={demandesDgrows}
                     hideFooter={true}

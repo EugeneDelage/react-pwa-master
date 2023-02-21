@@ -3,7 +3,7 @@
 import Typography from '@mui/material/Typography';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import { DataGrid , GridColumns, GridRowId,GridActionsCellItem, useGridApiRef } from '@mui/x-data-grid';
+import { DataGrid , GridColumns, GridRowId,GridActionsCellItem, useGridApiRef, frFR } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -114,6 +114,7 @@ function Consentements() {
           <CardContent>  
             <Container sx={{  height:`calc(100vh - 250px)`}}>
               <DataGrid
+                localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                 columns={columns}
                 rows={consentements}
               />

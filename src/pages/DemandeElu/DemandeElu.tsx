@@ -7,7 +7,7 @@ import { Box, useTheme } from "@mui/system";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 // react
 import { useCallback, useState } from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, frFR, GridColDef } from "@mui/x-data-grid";
 import { useParams } from "react-router";
 
 function DemandeElu() {
@@ -108,7 +108,7 @@ function DemandeElu() {
             : <CardHeader title="Demande élu -ajout"></CardHeader>
             }
             <CardContent>
-              <Box sx={{ border: 2, borderRadius: 5,marginTop:1,maxHeight:550,minWidth: 650 }}>
+              <Box sx={{ border: 2, borderRadius: 5,marginTop:1 }}>
                 <TabContext value={tabValue}>
                   <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -116,18 +116,22 @@ function DemandeElu() {
                       <Tab label="Communications DG" value="2" />
                     </TabList>
                   </Box>
-                  <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="1">  
+                  <TabPanel sx={{  height:`calc(100vh - 182px)`,minWidth:80}} value="1">  
                      <Grid container spacing={1}>
                         <Grid item xs={12} sm={6}>
-                           <TextField  multiline variant="filled" 
+                           <TextField  
+                             InputProps={{ sx: { height: 120 } }}
+                             multiline variant="filled" 
                              fullWidth
-                            defaultValue="Tremblay, Mathieu
+                             defaultValue="Tremblay, Mathieu
                             123, rue abc
                             Localisation de la problématique: 3, Terrasse Debien"
                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                           <TextField  multiline variant="filled" 
+                           <TextField  
+                             InputProps={{ sx: { height: 120 } }}
+                             multiline variant="filled" 
                              fullWidth
                              defaultValue="Requête: RC-528-130 -Y2TB
                              Type: INT bac brisé
@@ -209,18 +213,18 @@ function DemandeElu() {
                            />
                         </Grid>
                     </Grid>
-              </TabPanel>
-              <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="2">
-                <Grid container spacing={1}>
-                  <Grid item xs={12} sm={6}>
-                      <TextField  variant="filled" 
-                        fullWidth
-                      defaultValue="2023-01-02"
-                      disabled
-                      label="Date de transmission"
-                      />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
+                  </TabPanel>
+                  <TabPanel sx={{  height:`calc(100vh - 182px)`,minWidth:80}} value="2">
+                    <Grid container spacing={1}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField  variant="filled" 
+                          fullWidth
+                          defaultValue="2023-01-02"
+                          disabled
+                          label="Date de transmission"
+                       />
+                      </Grid>
+                     <Grid item xs={12} sm={6}>
                       <TextField variant="filled" 
                         fullWidth
                         disabled
@@ -247,6 +251,7 @@ function DemandeElu() {
                   <Grid item xs={12} sm={12}>
                   <div style={{ height: 150,flexGrow: 1 }}>
                     <DataGrid
+                      localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                       columns={messageElusColumns}
                       rows={messageElusRows}
                       hideFooter={true}
@@ -257,7 +262,7 @@ function DemandeElu() {
                 </Grid>
 
               </TabPanel>
-             </TabContext>
+                </TabContext>
              </Box>      
             </CardContent>
             <CardActions sx={{

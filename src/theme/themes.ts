@@ -1,6 +1,6 @@
 import { ThemeOptions } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
-import { frCA } from 'date-fns/locale';
+import { frFR } from '@mui/x-data-grid';
 
 import { Themes } from './types';
 
@@ -11,7 +11,7 @@ const sharedTheme = {
       paper: '#fff',
     },
   },
-  frCA,
+  frFR,
   components: {
     MuiButtonBase: {
       defaultProps: {

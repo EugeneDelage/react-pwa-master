@@ -4,7 +4,7 @@ import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Tab, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid';
+import { DataGrid, frFR, GridColumns, GridRowId } from '@mui/x-data-grid';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 // API
@@ -122,6 +122,7 @@ function DemandesElus() {
               </Box>
             <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="1">              
              <DataGrid
+                localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                 rows={demandeselus}
                 columns={colIssOuverte}                
                 pagination
@@ -132,6 +133,7 @@ function DemandesElus() {
             </TabPanel>
             <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="2">
               <DataGrid
+                 localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                  rows={demandeselus}
                  columns={colIssOuverte}                
                  pagination
@@ -142,6 +144,7 @@ function DemandesElus() {
             </TabPanel>
             <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="3">
               <DataGrid
+                 localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                  rows={demandeselus}
                  columns={colIssOuverte}                
                  pagination                 

@@ -5,7 +5,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
-import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid';
+import { DataGrid, frFR, GridColumns, GridRowId } from '@mui/x-data-grid';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Box, darken, lighten } from '@mui/system';
@@ -322,6 +322,7 @@ function RequetesCitoyennes() {
               }}>
 
              <DataGrid
+                localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                 rows={requetescitoyennes}
                 columns={colSansSuivi}                
                 pagination
@@ -334,6 +335,7 @@ function RequetesCitoyennes() {
             </TabPanel>
           <TabPanel sx={{  height:`calc(100vh - 182px)`}} value="2">
               <DataGrid
+                 localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                  rows={requetescitoyennes}
                  columns={colAvecSuivi}                
                  pagination
@@ -344,6 +346,7 @@ function RequetesCitoyennes() {
             </TabPanel>
           <TabPanel sx={{  height:`calc(100vh - 182px)`}} value="3">
               <DataGrid
+                 localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                  rows={requetescitoyennes}
                  columns={colToutes}                
                  pagination                 
