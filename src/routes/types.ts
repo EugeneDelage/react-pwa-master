@@ -13,6 +13,8 @@ enum Pages {
   DemandesElus,
   DemandeElu,
   DemandeEluEdit,
+  DemandeEluIss,
+  DemandeEluIssEdit,
   UserProfile,
   SignIn,
   NotFound,

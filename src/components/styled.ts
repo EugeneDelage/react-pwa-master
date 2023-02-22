@@ -13,6 +13,7 @@ const CenteredFlexBox = styled(FlexBox)({
 const FullSizeCenteredFlexBox = styled(CenteredFlexBox)({
   width: '100%',
   height: '100%',
+  flexWrap: 'wrap'
 });
 
 export { FlexBox, CenteredFlexBox, FullSizeCenteredFlexBox };

@@ -43,17 +43,17 @@ function DemandesElus() {
 
   const colIssOuverte= useMemo<GridColumns<Row>>(
     ()=>[
-    { field: 'id', headerName: 'ID', width: 90 },
+    // { field: 'id', headerName: 'ID', width: 90 },
     {
       field: 'noDemande',
       headerName: 'No Demande',
-      width: 50,
+      width: 150,
       editable: false,
     },
     {
       field: 'typeDemande',
       headerName: 'Type de la demande',
-      width: 150,
+      width: 180,
       editable: false,
     },
     {
@@ -123,7 +123,7 @@ function DemandesElus() {
             <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="1">              
              <DataGrid
                 localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
-                rows={demandeselus}
+                rows={demandeselus.filter(demande=> demande.typeDemande==="Initiative sujet spécifique")}
                 columns={colIssOuverte}                
                 pagination
                 pageSize={pageSize}

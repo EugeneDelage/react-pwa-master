@@ -107,7 +107,7 @@ function Consentements() {
           <CardHeader 
             title={
               <Typography variant="h4" align='center'>
-                 Consentements
+                 Consentements en attente
               </Typography>
             }>
           </CardHeader>

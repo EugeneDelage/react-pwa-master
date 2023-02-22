@@ -4,7 +4,9 @@ export interface IDemandeElu {
     typeDemande:string;
     requeteId:number;
     eluId:number;
-    sujet: string
-    statut: string,
-    suiviPlanifieDgDate:Date
+    sujet: string;
+    statut: string;
+    adresse: string;
+    description:string;
+    suiviPlanifieDgDate?:Date
 }

@@ -3,5 +3,6 @@ export interface IConsentement {
   requerant: string
   equipeelu: string,
   demandeDate:Date,
-  relanceDate:Date
+  relanceDate:Date,
+  messageperso: string;
 }

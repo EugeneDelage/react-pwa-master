@@ -60,8 +60,8 @@ const routes: Routes = {
   },
   [Pages.DemandeElu]: {
     path: "/demandeelu",
-    component: asyncComponentLoader(() => import('@/pages/DemandeElu')),
-    title: 'Créer une demande',
+    component: asyncComponentLoader(() => import('@/pages/DemandeEluIss')),
+    // title: 'Créer une demande',
     icon: ContactEmergencyIcon,
   },
   [Pages.DemandeEluEdit]: {
@@ -70,6 +70,19 @@ const routes: Routes = {
 //  title: 'Modifier une demande',
     icon: ContactEmergencyIcon,
   },
+  [Pages.DemandeEluIss]: {
+    path: "/demandeeluiss",
+    component: asyncComponentLoader(() => import('@/pages/DemandeEluIss')),
+    title: 'Créer une demande (ISS)',
+    icon: ContactEmergencyIcon,
+  },
+  [Pages.DemandeEluIssEdit]: {
+    path: '/demandeeluiss/:id',
+    component: asyncComponentLoader(() => import('@/pages/DemandeEluIss')),
+//  title: 'Modifier une demande',
+    icon: ContactEmergencyIcon,
+  },
+
   [Pages.UserProfile]: {
     path: '/userprofile',
     component: asyncComponentLoader(() => import('@/pages/UserProfile')),

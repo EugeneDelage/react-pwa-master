@@ -17,7 +17,6 @@ import { useCallback, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DataGrid, frFR, GridColDef } from '@mui/x-data-grid';
-import { minWidth } from '@mui/system';
 
 function RequeteCitoyenne() {
   const theme = useTheme();
@@ -64,7 +63,7 @@ function RequeteCitoyenne() {
   const creeDemande = useCallback(
     () => () => {
       setTimeout(() => {
-        navigate(`/demandeelu/`);
+        navigate(`/demandeeluiss/`);
       });
     },
     [],
@@ -88,13 +87,13 @@ function RequeteCitoyenne() {
     {
       field: 'statut',
       headerName: 'Statut',
-      width: 80,
+      width: 100,
       editable: false,
     },
     {
       field: 'suiviPlanifieDgDate',
       headerName: 'Date suivi planifié DG',
-      width: 100,
+      width: 160,
       editable: false,
     },
     {
@@ -108,9 +107,9 @@ function RequeteCitoyenne() {
   ];
 
   const demandesDgrows = [
-    { id: 1, suiviPlanifieDgDate: '2023-04-05', sujet: 'sujet un', statut:'Jean Beaupré' },
-    { id: 2, notsuiviPlanifieDgDateeDate: '2023-04-06', sujet: 'sujet deux', statut:'Paul Bérubé' },
-    { id: 3, suiviPlanifieDgDate: '2023-04-07', sujet: 'sujet trois', statut:'Jacynthe Girard' },
+    { id: 1, suiviPlanifieDgDate: '2023-04-05', sujet: 'sujet un', statut:'Assignation' },
+    { id: 2, notsuiviPlanifieDgDateeDate: '2023-04-06', sujet: 'sujet deux', statut:'Création' },
+    { id: 3, suiviPlanifieDgDate: '2023-04-07', sujet: 'sujet trois', statut:'Résolution' },
     
   ];
 
@@ -170,7 +169,12 @@ function RequeteCitoyenne() {
 
     return(
         <>
-        <FullSizeCenteredFlexBox>
+         <Box component="div" sx={{ display: 'block' }}>              
+            <Typography align="center" variant="h5">
+               Requête Citoyenne
+            </Typography>
+         </Box>
+         <FullSizeCenteredFlexBox>
            <Box sx={{ Width: '100%', marginTop:'10px', marginRight:'15px'}}>
              <Card  sx={{ Width: '100%'}}>
               <CardHeader  
@@ -188,13 +192,13 @@ function RequeteCitoyenne() {
               </CardContent>
             </Card>
            </Box>
-          <Box sx={{ border: 2, borderRadius: 5,marginTop:1,maxHeight:550,minWidth: 650 }}>
+           <Box sx={{ border: 2, borderRadius: 5,marginTop:1,maxHeight:550,minWidth: 650 }}>
             <TabContext value={value}>
               <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
               <TabList onChange={handleChange} aria-label="lab API tabs example">
                 <Tab label="Caractéristiques" value="1" />
                 <Tab label="Activités" value="2" />
-                <Tab label="Notes et suivis" value="3" />
+                <Tab label="Notes et suivis DG" value="3" />
                 <Tab label="Emplacement" value="4" />
               </TabList>
               </Box>
@@ -296,8 +300,8 @@ function RequeteCitoyenne() {
                     </MapContainer>
               </TabPanel>
             </TabContext>
-          </Box>
-          <Dialog
+           </Box>
+           <Dialog
             fullScreen={fullScreen}
             open={openAddNoteDlg}
             onClose={handleCloseAddNoteDlg}
@@ -307,7 +311,7 @@ function RequeteCitoyenne() {
             {"Ajout d'une note"}
           </DialogTitle>
           <DialogContent sx={{ minWidth:500}} 
-            >
+          >
           <Grid container spacing={1}>
              <Grid item xs={12} sm={12}>
              <TextField  multiline variant="filled" 
@@ -327,10 +331,9 @@ function RequeteCitoyenne() {
               Sauvegarder
             </Button>
           </DialogActions>
-        </Dialog>
-
-       </FullSizeCenteredFlexBox>
-    </>
+           </Dialog>
+         </FullSizeCenteredFlexBox>
+        </>
     );
 }
 

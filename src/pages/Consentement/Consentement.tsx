@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, TextField, TextFieldProps} from '@mui/material';
+import { Alert, AlertTitle, Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, TextField, TextFieldProps} from '@mui/material';
 import { Box } from '@mui/system';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 
@@ -18,12 +18,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
 //react et react-hook-form
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm ,Controller } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query'
+import useNotifications from '@/store/notifications';
 
 function Consentement() {
-
+  const [, notificationsActions] = useNotifications();
+  const navigate = useNavigate();
   const {id} = useParams();
   const blabla="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun ut labore et dolore magna aliqua.";
   
@@ -61,7 +63,31 @@ function Consentement() {
   const { handleSubmit, control, formState: { errors } } = useForm<IConsentement>({
     resolver:yupResolver(validationSchema)
   });
- 
+  const handleCancel =()=>
+  {
+    navigate(-1);
+  }
+  const handleRelance=()=>
+  {
+    notificationsActions.push({
+      options: {
+        // Show fully customized notification
+        // Usually, to show a notification, you'll use something like this:
+        // notificationsActions.push({ message: ... })
+        // `message` accepts string as well as ReactNode
+        // But you also can use:
+        // notificationsActions.push({ options: { content: ... } })
+        // to show fully customized notification
+        content: (
+          <Alert severity="info">
+            <AlertTitle>Notification</AlertTitle>
+               Consentement relancé
+          </Alert>
+        ),
+      },
+    });
+  }
+
   // const [data, setData] = useState<IConsentement>();
   const ConsentementQuery = useQuery({queryKey:['consentement'], queryFn:fetchConsentement});
 
@@ -75,124 +101,117 @@ function Consentement() {
 
   }
 
-  const onSubmit=(data:IConsentement)=> {
-    console.log(data);
-  }
-
   return (
     <>
       <FullSizeCenteredFlexBox>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Card sx={{ minWidth: 400 }}>
-        <CardContent>
+        <Card sx={{marginTop:2,maxHeight:500}}>
+          <CardContent>
           <Typography variant="h4" align="center">Consentement</Typography>
-            <Box height={16}/>
-            <Box height={16}/>    
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Nom</TableCell>
-                    <TableCell>Prénom</TableCell>
-                    <TableCell>Téléphone</TableCell>
-                    <TableCell>Courriel</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {searchRows.map((row) => (
-                    <TableRow
-                      key={row.name}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="left">{row.firstname}</TableCell>
-                      <TableCell align="left">{row.telephone}</TableCell>
-                      <TableCell align="left">{row.email}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>   
-            <Box height={16}/>          
-            <Controller 
-               name="requerant"
-               control={control}
-               render={({field})=> (
-                 <TextField {...field} 
-                  fullWidth
-                  error={!!errors.requerant}
-                  helperText={errors.requerant ? errors.requerant?.message:''}
-                  label="Requérant"
-                  value={ConsentementQuery.data.requerant}
-                 />
-               )}
-            />
-            <Box height={16}/>
-            <Controller 
+          <Box height={16}/>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sm={6}>
+              <Controller 
+                name="requerant"
+                control={control}
+                render={({field})=> (
+                <TextField {...field} 
+                 disabled
+                 fullWidth
+                 label="Requérant"
+                 value={ConsentementQuery.data.requerant}
+                />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller 
                name="equipeelu"
                control={control}
                render={({field})=> (
                  <TextField {...field} 
-                  error={!!errors.equipeelu}
-                  helperText={errors.equipeelu ? errors.equipeelu?.message:''}
+                  disabled
+                  fullWidth
                   label="Équipe élu"
+                  value={ConsentementQuery.data.equipeelu}
                  />
                )}
-            />
-            <Box height={16}/>
-
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
             <Controller 
+               control={control}            
                name="demandeDate"
-               control={control}
-               render={({field})=> (
-                 <TextField {...field} 
-                  error={!!errors.demandeDate}
-                  helperText={errors.demandeDate ? errors.demandeDate?.message:''}
-                  label="Date de la demande"
-                 />
-               )}
-            />
-
-            <Box height={16}/>  
-
-            <Controller 
-             control={control}            
-             name="relanceDate"
-             render={({ field: { ref, onBlur, name,...field} }) => (
-              
-              <DatePicker 
-                {...field}
-                inputRef={ref}
-                label="Date relance" 
-                renderInput={(inputProps) => (
-                  <TextField
-                    {...inputProps}
-                    onBlur={onBlur}
-                    name={name}
-                    error={!!errors.relanceDate}
-                    helperText={errors.relanceDate ? errors.relanceDate?.message:''}                
-                  />
+               render={({ field: { ref, onBlur, name,...field} }) => (
+                <DatePicker 
+                  {...field}
+                  inputRef={ref}
+                  label="Date relance" 
+                  renderInput={(inputProps) => (
+                    <TextField
+                      {...inputProps}
+                      disabled
+                      fullWidth
+                      name={name}
+                      value={ConsentementQuery.data.demandeDate}
+                    />
                 )}
                 format="YYYY-MM-DD"
                 KeyboardButtonProps={{"aria-label": "change date"}}
-                error={!!errors.relanceDate}
-                helperText={errors.relanceDate ? errors.relanceDate?.message:''}                
+                />
+               )}
               />
-             )}
-            />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller 
+               control={control}            
+               name="relanceDate"
+               render={({ field: { ref, onBlur, name,...field} }) => (
+                <DatePicker 
+                  {...field}
+                  inputRef={ref}
+                  label="Date relance" 
+                  renderInput={(inputProps) => (
+                    <TextField
+                      {...inputProps}
+                      disabled
+                      fullWidth
+                      name={name}
+                      value={ConsentementQuery.data.relanceDate}
+                    />
+                )}
+                format="YYYY-MM-DD"
+                KeyboardButtonProps={{"aria-label": "change date"}}
+                />
+               )}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Controller 
+               name="messageperso"
+               control={control}
+               render={({field})=> (
+                 <TextField {...field} 
+                  multiline
+                  disabled
+                  fullWidth
+                  label="Message personnalisé"
+                  value={ConsentementQuery.data.messageperso}
+                 />
+               )}
+              />
+            </Grid>
 
-            <Box height={16}/>   
-        </CardContent>
-        <CardActions>
-          <Button size="small">Annuler</Button>
-          <Button type="submit" variant="contained" color="primary">Envoyer</Button>          
-        </CardActions>
-      </Card>
-      </form>
-          </LocalizationProvider>                        
+           </Grid>
+
+          </CardContent>
+          <CardActions>
+            <Button onClick={handleCancel} >Annuler</Button>
+            <Button onClick={handleRelance} variant="contained" color="primary">Relancer</Button>          
+          </CardActions>
+        </Card>
+
+      </LocalizationProvider>                        
       </FullSizeCenteredFlexBox>
     </>
   );
