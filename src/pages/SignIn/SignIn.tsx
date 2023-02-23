@@ -14,9 +14,14 @@ import Avatar from "@mui/material/Avatar";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ILogin } from "@/models/Login";
+import { useDispatch } from "react-redux";
+import { loginUser } from "@/store/redux/users/userSlice";
+import { useNavigate } from "react-router-dom";
 
 
 function SignIn() {
+    const userDispatch = useDispatch();
+    const navigate = useNavigate(); 
     const validationSchema = Yup.object().shape({
       email: Yup.string()
                 .required("L'adresse courriel est obligatoire")
@@ -33,20 +38,22 @@ function SignIn() {
       resolver:yupResolver(validationSchema),
     });
     const submitForm= (values:ILogin) => {
+      userDispatch(loginUser(values.email));
       console.log({values});
       reset();
+      navigate(`/`);
     }
 
     return (
     <>
-    <Meta title="Connection" />
+    <Meta title="Connexion" />
     <FullSizeCenteredFlexBox>
       <Card sx={{ minWidth: 500 , maxHeight: 400, marginTop:10}}>
         <CardContent>
          <Avatar>
            <LockIcon />
          </Avatar>
-         <Typography variant="h2" align="center">Connection</Typography>
+         <Typography variant="h2" align="center">Connexion</Typography>
         <form onSubmit={handleSubmit(submitForm)}>
            <TextField
              id="email"

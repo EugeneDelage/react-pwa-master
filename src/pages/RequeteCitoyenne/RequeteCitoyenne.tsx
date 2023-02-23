@@ -17,6 +17,7 @@ import { useCallback, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DataGrid, frFR, GridColDef } from '@mui/x-data-grid';
+import RequeteCitoyenneCaracteristique from './RequeteCitoyenneCaracteristique';
 
 function RequeteCitoyenne() {
   const theme = useTheme();
@@ -202,8 +203,8 @@ function RequeteCitoyenne() {
                 <Tab label="Emplacement" value="4" />
               </TabList>
               </Box>
-              <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="1">              
-              <Grid  sx={{border: 1, borderRadius: 2}} container spacing={1}>
+              <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="1">  
+                <Grid  sx={{border: 1, borderRadius: 2}} container spacing={1}>
                   <Grid sx={{borderRight: 1,borderBottom:1}} item xs={4}>
                     Contenant fourni par la ville
                   </Grid>
