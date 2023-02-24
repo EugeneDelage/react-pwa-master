@@ -4,6 +4,5 @@ export interface IRequeteCitoyenneCaracteristique {
     key:string;
     value:string;
     sujet:string;
-    fichiers:string;
 }
      

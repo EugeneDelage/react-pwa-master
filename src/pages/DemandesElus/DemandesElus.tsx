@@ -41,7 +41,7 @@ function DemandesElus() {
   );
   const [pageSize, setPageSize] = useState<number>(5);
 
-  const colIssOuverte= useMemo<GridColumns<Row>>(
+  const colDemande= useMemo<GridColumns<Row>>(
     ()=>[
     // { field: 'id', headerName: 'ID', width: 90 },
     {
@@ -115,38 +115,26 @@ function DemandesElus() {
             <TabContext value={tabValue}>
               <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
                <TabList onChange={handleChange} aria-label="lab API tabs example">
-                 <Tab label="ISS ouverte" value="1" />
-                 <Tab label="ISS et RC ouverte" value="2" />
-                 <Tab label="Toutes demandes" value="3" />
+                 <Tab label="Toutes demandes ouvertes" value="1" />
+                 <Tab label="Toutes les demandes" value="2" />
                </TabList>
               </Box>
-            <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="1">              
-             <DataGrid
-                localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
-                rows={demandeselus.filter(demande=> demande.typeDemande==="Initiative sujet spécifique")}
-                columns={colIssOuverte}                
-                pagination
-                pageSize={pageSize}
-                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                rowsPerPageOptions={[5, 10, 20]}
-             />
-            </TabPanel>
-            <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="2">
+            <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="1">
               <DataGrid
                  localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                  rows={demandeselus}
-                 columns={colIssOuverte}                
+                 columns={colDemande}                
                  pagination
                  pageSize={pageSize}
                  onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                  rowsPerPageOptions={[5, 10, 20]}
                />
             </TabPanel>
-            <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="3">
+            <TabPanel sx={{  height:`calc(100vh - 320px)`}} value="2">
               <DataGrid
                  localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                  rows={demandeselus}
-                 columns={colIssOuverte}                
+                 columns={colDemande}                
                  pagination                 
                  pageSize={pageSize}
                  onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}

@@ -3,9 +3,9 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import ThreePIcon from '@mui/icons-material/ThreeP';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import HttpsIcon from '@mui/icons-material/Https';
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
-
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 import asyncComponentLoader from '@/utils/loader';
 
 import { Pages, Routes } from './types';
@@ -92,8 +92,14 @@ const routes: Routes = {
   [Pages.SignIn]: {
     path: '/signin',
     component: asyncComponentLoader(() => import('@/pages/SignIn')),
-    title: 'Connect',
-    icon: HttpsIcon,
+    title: 'Connexion',
+    icon: LockOpenIcon,
+  },
+  [Pages.SignOut]: {
+    path: '/signout',
+    component: asyncComponentLoader(() => import('@/pages/SignOut')),
+    title: 'Déconnexion',
+    icon: LockIcon,
   },
   [Pages.NotFound]: {
     component: asyncComponentLoader(() => import('@/pages/NotFound')),

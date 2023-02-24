@@ -17,6 +17,7 @@ enum Pages {
   DemandeEluIssEdit,
   UserProfile,
   SignIn,
+  SignOut,
   NotFound,
 }
 

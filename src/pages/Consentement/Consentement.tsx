@@ -27,7 +27,6 @@ function Consentement() {
   const [, notificationsActions] = useNotifications();
   const navigate = useNavigate();
   const {id} = useParams();
-  const blabla="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun ut labore et dolore magna aliqua.";
   
   const validationSchema = Yup.object().shape({
     requerant: Yup.string()
@@ -107,10 +106,10 @@ function Consentement() {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Card sx={{marginTop:2,maxHeight:500}}>
           <CardContent>
-          <Typography variant="h4" align="center">Consentement</Typography>
-          <Box height={16}/>
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm={6}>
+            <Typography variant="h4" align="center">Consentement</Typography>
+            <Box height={16}/>
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={6}>
               <Controller 
                 name="requerant"
                 control={control}
@@ -123,8 +122,8 @@ function Consentement() {
                 />
                 )}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+              </Grid>
+              <Grid item xs={12} sm={6}>
               <Controller 
                name="equipeelu"
                control={control}
@@ -137,9 +136,9 @@ function Consentement() {
                  />
                )}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <Controller 
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <Controller 
                control={control}            
                name="demandeDate"
                render={({ field: { ref, onBlur, name,...field} }) => (
@@ -161,8 +160,8 @@ function Consentement() {
                 />
                )}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+              </Grid>
+              <Grid item xs={12} sm={6}>
               <Controller 
                control={control}            
                name="relanceDate"
@@ -202,7 +201,7 @@ function Consentement() {
               />
             </Grid>
 
-           </Grid>
+            </Grid>
 
           </CardContent>
           <CardActions>

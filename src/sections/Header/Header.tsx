@@ -17,9 +17,10 @@ import { title } from '@/config';
 import lavallogo from "../../pages/Home/logos/lavallogo.svg"
 import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
+import { currentUser } from '@/store/redux/users/userSlice';
 
 function Header() {
-  const user= useSelector((state)=>state.user);
+  const user= useSelector(currentUser);
   
   console.log("user",user);
 
@@ -41,15 +42,17 @@ function Header() {
             >
               <MenuIcon />
             </IconButton>
+            <span><Typography variant="h6">Menu</Typography></span>
+            <Divider orientation="vertical" flexItem />            
             <Box
               component="img"
               src={lavallogo}
             />                  
           </FlexBox>
-          { user.value!=null &&
+          { user!=null &&
             <div>
               <FlexBox>
-                <Typography variant="h6">{user.value}</Typography>
+                <Typography variant="h6">Portail des élus [ {user.email} ]</Typography>
                 {/* <Typography variant="h4">{user}</Typography> */}
               </FlexBox>
               <Divider orientation="vertical" flexItem />

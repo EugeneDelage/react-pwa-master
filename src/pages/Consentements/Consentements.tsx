@@ -3,7 +3,7 @@
 import Typography from '@mui/material/Typography';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import { DataGrid , GridColumns, GridRowId,GridActionsCellItem, useGridApiRef, frFR } from '@mui/x-data-grid';
+import { DataGrid , GridColumns, GridRowId, frFR } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -38,8 +38,6 @@ function Consentements() {
   type Row = typeof consentements[number];
 
   const handleRelance = (params) => {
-    console.log('Before setOpen(true)',open);
-    console.log('params',params);
     setOpen(true);
   };
 

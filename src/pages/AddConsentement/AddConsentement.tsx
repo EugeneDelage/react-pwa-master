@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import { DataGrid, frFR, GridColDef } from '@mui/x-data-grid';
 import { Box } from '@mui/system';
-import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, TextField, TextFieldProps} from '@mui/material';
+import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Paper, Select, SelectChangeEvent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextareaAutosize, TextField, TextFieldProps} from '@mui/material';
 
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 
@@ -23,11 +23,13 @@ import * as Yup from 'yup';
 import { useForm ,Controller } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { EquipesEluApiService } from '@/api/EquipeEluService';
 
 function AddConsentement() {
 
-  const blabla="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun ut labore et dolore magna aliqua.";
-  
+  const blablaJuridique="Je certifie..lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun ut labore et dolore magna aliqua.";
+  const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     requerant: Yup.string()
               .required("Le nom du requérant est obligatoire"),
@@ -50,16 +52,20 @@ function AddConsentement() {
   ];  
 
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Nom', width: 70 },
+    { field: 'name', headerName: 'Nom', width: 80 },
     { field: 'firstname', headerName: 'Prénom', width: 130 },
     { field: 'telephone', headerName: 'Téléphone', width: 130 },
-    { field: 'email',    headerName: 'Courriel',   width: 90},
+    { field: 'email',    headerName: 'Courriel',   width: 190},
   ];
 
   const { handleSubmit, control, reset, formState: { errors } } = useForm<IConsentement>({
     defaultValues:{},
     resolver:yupResolver(validationSchema)
   });
+  const handleCancel =()=>
+  {
+    navigate(-1);
+  }
 
   const [selectedRequerant,setSelectedRequerant]=useState("");
 
@@ -74,8 +80,17 @@ function AddConsentement() {
   const showClearIcon="none";
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-     
   };
+  const [equipe, setEquipe] = useState('');
+  const handleChangeEquipe = (event: SelectChangeEvent) => {
+    setEquipe(event.target.value as string);
+  };      
+
+  const fetchEquipesElu = async () =>{
+    const response = await EquipesEluApiService.getAllEquipesElu();
+    return response.data;
+  } 
+  const EquipesEluQuery = useQuery({queryKey:['equipeselu'], queryFn:fetchEquipesElu});
 
   const handleRowClick = (param, event) => {
     console.log(`${param.row.firstname} ${param.row.name}`);
@@ -85,18 +100,19 @@ function AddConsentement() {
     <>
       <FullSizeCenteredFlexBox>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Card sx={{ minWidth: 400 }}>
-        <CardContent>
-          <Typography variant="h4" align="center">Consentement</Typography>
-            <Box height={16}/>
-             <Card sx={{ width: '100%', maxWidth: 600 }}>
-              <CardContent>
-                <Typography variant="h7" align="left">{blabla} </Typography>
-              </CardContent>
-             </Card>
-              <FormControlLabel control={<Checkbox />}
-              label="J'ai lu" />
+        <Card sx={{marginTop:2,minWidth: 400,maxWidth:800,maxHeight:700}}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+          <CardContent>
+            <Typography variant="h4" align="center">Consentement</Typography>
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={12}>
+                 <Typography variant="h7" align="left">{blablaJuridique} </Typography>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <FormControlLabel control={<Checkbox />}
+                label="J'ai lu" />
+              </Grid>
+              <Grid item xs={12} sm={12}>
               <TextField
                 size="small"
                 label="Courriel"
@@ -118,54 +134,59 @@ function AddConsentement() {
                   </InputAdornment>
                 )
               }}
-            />
-
-            <Box height={16}/>    
-            <div style={{height:200, width:'100%'}}>
-            <DataGrid
-               localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
-               rows={searchRows}
-               columns={columns}                
-               pageSize={3}
-               hideFooter={true}
-               onRowClick={handleRowClick}
-            />
-            </div>
-            <Box height={16}/>   
-            <Typography variant="h7" align="center">{selectedRequerant}</Typography>       
-            <Box height={16}/>
-            <FormControl fullWidth>
-              <InputLabel id="equipeelu">Équipe Élu</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                // value={equipeelu}
-                label="Équipe élu"
-              >
-                <MenuItem>District-01 A. Beauséjour</MenuItem>
-                <MenuItem>District-02 G. Maraut</MenuItem>
-                <MenuItem>District-02 H. Beauchamp</MenuItem>
-              </Select>
-            </FormControl>
-            <Box height={16}/>   
-            <TextareaAutosize
-              aria-label="minimum height"
-              minRows={4}
-              placeholder="Message personnalisé dans le courriel"
-              style={{ width: 600}}
-            />
-        </CardContent>
-        <CardActions disableSpacing
-           sx={{
-             alignSelf: "stretch",
-             display: "flex",
-             justifyContent: "flex-end",
-             }}>
-          <Button size="small">Annuler</Button>
-          <Button type="submit" variant="contained" color="primary" disabled={selectedRequerant===""}>Envoyer</Button>          
-        </CardActions>
-      </Card>
-      </form>
+              />
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <div style={{height:200, width:'100%'}}>
+                <DataGrid
+                   localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
+                   rows={searchRows}
+                   columns={columns}                
+                   pageSize={3}
+                   hideFooter={true}
+                   onRowClick={handleRowClick}
+                />
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Typography variant="h7" align="center">{selectedRequerant}</Typography>       
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <InputLabel id="ilequipe">Équipe</InputLabel>
+                <Select
+                   fullWidth
+                   labelId="ilequipe"
+                   id="demo-simple-select"
+                   value={equipe}
+                   label="Équipe"
+                   onChange={handleChangeEquipe}
+                   >
+                   {EquipesEluQuery?.data?.map((data) => (
+                      <MenuItem key={data.id} value={data.id}>{data.nom}</MenuItem>
+                   ))}
+                 </Select>
+              </Grid>
+              
+              <Grid item xs={12} sm={12}>
+                <TextField multiline
+                  label="Message personnalisé dans le courriel"
+                  fullWidth
+                />
+              </Grid>
+           </Grid>
+          </CardContent>
+          <CardActions disableSpacing
+             sx={{
+               alignSelf: "stretch",
+               display: "flex",
+               justifyContent: "flex-end",
+               }}>
+             <Button size="small" onClick={handleCancel} >Annuler</Button>
+             <Button type="submit" variant="contained" color="primary" disabled={selectedRequerant===""}>Envoyer</Button>          
+          </CardActions>
+          </form>
+         </Card>
+      
       </LocalizationProvider>                        
       </FullSizeCenteredFlexBox>
     </>

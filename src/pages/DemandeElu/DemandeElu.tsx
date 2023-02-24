@@ -104,6 +104,7 @@ function DemandeElu() {
       return response.data;
     } 
     const EquipesEluQuery = useQuery({queryKey:['equipeselu'], queryFn:fetchEquipesElu});
+    
     return (
       <>
         <Meta title="Demande Elu" />

@@ -9,7 +9,8 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { Alert, AlertTitle } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,11 +18,12 @@ import { ILogin } from "@/models/Login";
 import { useDispatch } from "react-redux";
 import { loginUser } from "@/store/redux/users/userSlice";
 import { useNavigate } from "react-router-dom";
-
+import useNotifications from '@/store/notifications';
 
 function SignIn() {
     const userDispatch = useDispatch();
     const navigate = useNavigate(); 
+    const [, notificationsActions] = useNotifications();
     const validationSchema = Yup.object().shape({
       email: Yup.string()
                 .required("L'adresse courriel est obligatoire")
@@ -38,12 +40,27 @@ function SignIn() {
       resolver:yupResolver(validationSchema),
     });
     const submitForm= (values:ILogin) => {
-      userDispatch(loginUser(values.email));
+      userDispatch(loginUser({
+        email:values.email,
+        password:values.password,
+        loggedIn:true,
+      }));
       console.log({values});
+      if (values){
+        notificationsActions.push({
+          options: {
+            content: (
+              <Alert severity="info">
+                <AlertTitle>Notification</AlertTitle>
+                   Vous êtes maintenant connecté.
+              </Alert>
+            ),
+          },
+        });
+      }
       reset();
       navigate(`/`);
     }
-
     return (
     <>
     <Meta title="Connexion" />
@@ -51,7 +68,7 @@ function SignIn() {
       <Card sx={{ minWidth: 500 , maxHeight: 400, marginTop:10}}>
         <CardContent>
          <Avatar>
-           <LockIcon />
+           <LockOpenIcon />
          </Avatar>
          <Typography variant="h2" align="center">Connexion</Typography>
         <form onSubmit={handleSubmit(submitForm)}>

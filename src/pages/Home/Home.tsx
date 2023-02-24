@@ -1,13 +1,27 @@
 import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 import useOrientation from '@/hooks/useOrientation';
+import { currentUser } from '@/store/redux/users/userSlice';
 import { Button, Paper, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Home() {
   // const isPortrait = useOrientation();
-  const user= useSelector((state)=>state.user);
+  const navigate = useNavigate(); 
+  const user= useSelector(currentUser);
+  const gotoRC= () => {
+    navigate(`/requetescitoyennes`);
+  }
+  const gotoDE= () => {
+    navigate(`/demandeselus`);
+  }
+  const gotoCT= () => {
+    navigate(`/consentements`);
+  }
+  const creeDemande= () => {
+    navigate(`/demandeeluiss`);
+  }
 
   return (
     <>
@@ -30,23 +44,23 @@ function Home() {
                     alignContent: 'center'
                     }} elevation={3}>
             
-            {user.value!=null &&
+            {user?.loggedIn!=null &&
               <div>
-              <Button sx={{ p:1, m:1}} variant="contained" size="large">
+              <Button sx={{ p:1, m:1}} variant="contained" size="large" onClick={gotoRC}>
                 Requêtes citoyennes
               </Button>
-              <Button sx={{ p:1, m:1}} variant="contained" size="large">
+              <Button sx={{ p:1, m:1}} variant="contained" size="large" onClick={gotoDE}>
                 Demandes élus
               </Button>
-              <Button sx={{ p:1, m:1}} variant="contained" size="large">
+              <Button sx={{ p:1, m:1}} variant="contained" size="large" onClick={gotoCT}>
                 Consentements
               </Button>
-              <Button sx={{ p:1, m:1}} variant="contained" size="large">
+              <Button sx={{ p:1, m:1}} variant="contained" size="large"onClick={creeDemande}>
                 Créer une demande (ISS)
               </Button>
               </div>
             }
-            {!user.value &&
+            {!user?.loggedIn &&
               <div>
                <Link to={'/SignIn'}>
                  <Button sx={{ p:1, m:1}} variant="contained" size="large">

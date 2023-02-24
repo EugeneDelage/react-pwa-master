@@ -5,5 +5,7 @@ export interface IRequeteCitoyenneActivite {
     typeActivite:string;
     sujet:string;
     fichiers:string;
+    description:string;
+    commentairesPortail:boolean;
 }
      
