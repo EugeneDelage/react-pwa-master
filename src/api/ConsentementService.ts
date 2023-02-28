@@ -1,5 +1,5 @@
 import HttpApiService from "./HttpApiService";
-import {IConsentement}  from '@/models/Consentement';
+import {Consentement}  from '@/models/Consentement';
 
 
 const API_BASE = "http://localhost:3000"; // = `${process.env.REACT_APP_API_URI}`;
@@ -16,15 +16,15 @@ export class ConsentementApi extends HttpApiService {
     };
   
     getAllConsentements = () => {
-      const response = this.get(`${CONSENTEMENT_ENDPOINT}`);
+      const response = this.get<Array<Consentement>>(`${CONSENTEMENT_ENDPOINT}`);
       return response
     };
   
-    createConsentement = (data: IConsentement) => {
+    createConsentement = (data: Consentement) => {
       return super.create(`${CONSENTEMENT_ENDPOINT}`, data);
     };
   
-    updateConsentement = (data: IConsentement) => {
+    updateConsentement = (data: Consentement) => {
       return super.update(`${CONSENTEMENT_ENDPOINT}`, data);
     };
     //#endregion Contact

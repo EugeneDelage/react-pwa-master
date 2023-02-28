@@ -11,10 +11,11 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import routes from '@/routes';
 import useSidebar from '@/store/sidebar';
 import { useSelector } from 'react-redux';
+import { currentUser } from '@/store/redux/users/userSlice';
 
 function Sidebar() {
   const [isSidebarOpen, sidebarActions] = useSidebar();
-  const user= useSelector(state=>state.user);
+  const user= useSelector(currentUser);
   return (
     <SwipeableDrawer
       anchor="left"
@@ -29,7 +30,7 @@ function Sidebar() {
           .filter((route) => route.title)
           .map(({ path, title, icon: Icon }) => (
             <ListItem sx={{ p: 0 }} key={path}>
-              <ListItemButton disabled={user.value=== null} component={Link} to={path as string} onClick={sidebarActions.close}>
+              <ListItemButton disabled={ user?.loggedIn==null} component={Link} to={path as string} onClick={sidebarActions.close}>
                 <ListItemIcon>{Icon ? <Icon /> : <DefaultIcon />}</ListItemIcon>
                 <ListItemText>{title}</ListItemText>
               </ListItemButton>

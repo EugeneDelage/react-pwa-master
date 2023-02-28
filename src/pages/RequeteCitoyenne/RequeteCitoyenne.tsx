@@ -240,12 +240,12 @@ function RequeteCitoyenne() {
               <TabPanel sx={{  height:`calc(100vh - 182px)`,width: 650}} value="1">  
                 <Grid  sx={{border: 1, borderRadius: 2}} container spacing={1}>
                   <Grid item xs={6}>
-                     <Chip label="Type d'information" color="primary" />
+                     <Chip  sx={{ width: 290}} label="Type d'information" color="primary" />
                   </Grid>
                   <Grid item xs={6}>  
-                     <Chip label="Valeur" color="success" />
+                     <Chip  sx={{ width: 290}} label="Valeur" color="success" />
                   </Grid>
-                  <Divider sx={{ borderBottomWidth: 5 }} variant="middle" />
+                  <Divider sx={{ borderBottomWidth: 5, width:540 }} variant="middle" />
                   <Grid item xs={6}>
                      <Chip label="Contenant fourni par la ville" color="primary" />
                   </Grid>
@@ -386,15 +386,24 @@ function RequeteCitoyenne() {
                   <TextField  multiline variant="filled" 
                    fullWidth
                    defaultValue={activiteData.description}
-                   disabled
                    label="Description" 
+                   inputProps= {{ readOnly: true, }}
                  />
                  </Grid>
                  <Grid item xs={12} sm={12}>
                   <TextField  multiline variant="filled" 
                    fullWidth
-                   value={activiteData.commentairesPortail} 
+                   defaultValue={activiteData.commentairesPortail} 
+                   inputProps= {{ readOnly: true, }}
                    label="Commentaires" 
+                   />
+                  </Grid>
+                  <Grid item xs={12} sm={12}>
+                  <TextField  multiline variant="filled" 
+                   fullWidth
+                   inputProps= {{ readOnly: true, }}
+                   defaultValue={activiteData.sujet} 
+                   label="Sujet" 
                    />
                   </Grid>
                 </Grid>

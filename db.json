@@ -18,42 +18,100 @@
     "consentements": [{
             "id": 1,
             "requerant": "Catherine Rousseau",
-            "equipeelu": "District-01 Isabelle Piché",
+            "equipeelu": "District-01- Nom élu 1",
+            "idEquipeelu": 1,
             "demandeDate": "2022-05-06",
             "relanceDate": "2022-06-06",
-            "messageperso": "Ceci est un message personnalisé au requérant."
+            "messageperso": "Ceci est un message personnalisé au requérant.",
+            "juridiqueLu": "true"
         },
         {
             "id": 2,
             "requerant": "John McQueen",
-            "equipeelu": "District-01 Isabelle Piché",
+            "equipeelu": "District-01- Nom élu 1",
+            "idEquipeelu": 1,
             "demandeDate": "2021-11-14",
             "relanceDate": "2022-01-14",
-            "messageperso": "Ceci est un message personnalisé au requérant."
+            "messageperso": "Ceci est un message personnalisé au requérant.",
+            "juridiqueLu": "true"
         },
         {
             "id": 3,
             "requerant": "Benoit Hill",
-            "equipeelu": "District-02: Paul Castonguay",
+            "equipeelu": "District-01- Nom élu 2",
+            "idEquipeelu": 2,
             "demandeDate": "2022-04-23",
             "relanceDate": "2022-05-23",
-            "messageperso": "Ceci est un message personnalisé au requérant."
+            "messageperso": "Ceci est un message personnalisé au requérant.",
+            "juridiqueLu": "true"
         },
         {
             "id": 5,
             "requerant": "Jean-François Bernard",
-            "equipeelu": "District-02: Paul Castonguay",
+            "equipeelu": "District-01- Nom élu 2",
+            "idEquipeelu": 2,
             "demandeDate": "2022-08-27",
             "relanceDate": "2022-09-23",
-            "messageperso": "Ceci est un message personnalisé au requérant."
+            "messageperso": "Ceci est un message personnalisé au requérant.",
+            "juridiqueLu": "true"
         },
         {
-            "id": 4,
+            "id": 6,
             "requerant": "Jonathan Dubois",
-            "equipeelu": "District-02: Paul Castonguay",
+            "equipeelu": "District-01- Nom élu 2",
+            "idEquipeelu": 2,
             "demandeDate": "2022-09-11",
             "relanceDate": "2022-10-11",
-            "messageperso": "Ceci est un message personnalisé au requérant."
+            "messageperso": "Ceci est un message personnalisé au requérant.",
+            "juridiqueLu": "true"
+        },
+        {
+            "id": 7,
+            "requerant": "Jonathan Dubois",
+            "equipeelu": "District-01- Nom élu 2",
+            "idEquipeelu": 2,
+            "demandeDate": "2022-09-11",
+            "relanceDate": "2022-10-11",
+            "messageperso": "Ceci est un message personnalisé au requérant.",
+            "juridiqueLu": "true"
+        },
+        {
+            "id": 8,
+            "requerant": "Jonathan Dubois",
+            "equipeelu": "District-01- Nom élu 2",
+            "idEquipeelu": 2,
+            "demandeDate": "2022-09-11",
+            "relanceDate": "2022-10-11",
+            "messageperso": "Ceci est un message personnalisé au requérant.",
+            "juridiqueLu": "true"
+        },
+        {
+            "id": 9,
+            "requerant": "Jonathan Dubois",
+            "equipeelu": "District-01- Nom élu 2",
+            "idEquipeelu": 2,
+            "demandeDate": "2022-09-11",
+            "relanceDate": "2022-10-11",
+            "messageperso": "Ceci est un message personnalisé au requérant.",
+            "juridiqueLu": "true"
+        },
+        {
+            "juridiqueLu": false,
+            "equipeelu": "District-01- Nom élu 3",
+            "idEquipeelu": 3,
+            "messageperso": "sdfdsdf",
+            "requerant": "Joe Beef",
+            "id": 3518216552845312,
+            "demandeDate": "2023-02-28T20:33:02.448Z"
+        },
+        {
+            "juridiqueLu": true,
+            "equipeelu": "District-01- Nom élu 2",
+            "idEquipeelu": 2,
+            "messageperso": "sdffdsdf",
+            "requerant": "Joe Beef",
+            "id": 3518217291042816,
+            "demandeDate": "2023-02-28T20:39:18.913Z"
         }
     ],
     "requetescitoyennes": [{
@@ -283,7 +341,7 @@
             "sujet": "Demande INT. bac brisé. Votre demande été prise en charge",
             "description": "Pour des fins de suivis, j'autorise les personnes suivantes...",
             "commentairesPortail": true,
-            "fichiers": ""
+            "fichiers": "fichier1.xls;fichier2.docx"
         },
         {
             "id": 7,
@@ -448,6 +506,49 @@
         {
             "id": 6,
             "nom": "District 06- Nom élu 6"
+        }
+    ],
+    "requerants": [{
+            "id": 1,
+            "name": "Nom 1",
+            "firstName": "Prénom 1",
+            "email": "Nom1@gmail.com",
+            "telephone": "418-345-8701"
+        },
+        {
+            "id": 2,
+            "name": "Nom 2",
+            "firstName": "Prénom 2",
+            "email": "Nom2@gmail.com",
+            "telephone": "418-345-8702"
+        },
+        {
+            "id": 3,
+            "name": "Nom 3",
+            "firstName": "Prénom 3",
+            "email": "Nom3@gmail.com",
+            "telephone": "418-345-8703"
+        },
+        {
+            "id": 4,
+            "name": "Nom 4",
+            "firstName": "Prénom 4",
+            "email": "Nom4@gmail.com",
+            "telephone": "418-345-8704"
+        },
+        {
+            "id": 5,
+            "name": "Nom 5",
+            "firstName": "Prénom 5",
+            "email": "Nom5@gmail.com",
+            "telephone": "418-345-8705"
+        },
+        {
+            "id": 6,
+            "name": "Nom 6",
+            "firstName": "Prénom 6",
+            "email": "Nom6@gmail.com",
+            "telephone": "418-345-8706"
         }
     ]
 }

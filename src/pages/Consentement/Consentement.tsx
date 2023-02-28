@@ -11,7 +11,7 @@ import { FullSizeCenteredFlexBox } from '@/components/styled';
 
 // data related
 import { ConsentementApiService } from '@/api/ConsentementService';
-import { IConsentement } from '@/models/Consentement';
+import { Consentement } from '@/models/Consentement';
 
 // validation
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -59,7 +59,7 @@ function Consentement() {
     }
     return null;
   }   
-  const { handleSubmit, control, formState: { errors } } = useForm<IConsentement>({
+  const { handleSubmit, control, formState: { errors } } = useForm<Consentement>({
     resolver:yupResolver(validationSchema)
   });
   const handleCancel =()=>
@@ -87,7 +87,6 @@ function Consentement() {
     });
   }
 
-  // const [data, setData] = useState<IConsentement>();
   const ConsentementQuery = useQuery({queryKey:['consentement'], queryFn:fetchConsentement});
 
   if (ConsentementQuery.isLoading){
@@ -138,8 +137,8 @@ function Consentement() {
               />
               </Grid>
               <Grid item xs={12} sm={6}>
-              <Controller 
-               control={control}            
+                <Controller 
+                  control={control}            
                name="demandeDate"
                render={({ field: { ref, onBlur, name,...field} }) => (
                 <DatePicker 
@@ -158,34 +157,34 @@ function Consentement() {
                 format="YYYY-MM-DD"
                 KeyboardButtonProps={{"aria-label": "change date"}}
                 />
-               )}
-              />
+                  )}
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
-              <Controller 
-               control={control}            
-               name="relanceDate"
-               render={({ field: { ref, onBlur, name,...field} }) => (
-                <DatePicker 
-                  {...field}
-                  inputRef={ref}
-                  label="Date relance" 
-                  renderInput={(inputProps) => (
-                    <TextField
-                      {...inputProps}
-                      disabled
-                      fullWidth
-                      name={name}
-                      value={ConsentementQuery.data.relanceDate}
-                    />
-                )}
-                format="YYYY-MM-DD"
-                KeyboardButtonProps={{"aria-label": "change date"}}
-                />
-               )}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12}>
+                <Controller 
+                 control={control}            
+                 name="relanceDate"
+                 render={({ field: { ref, onBlur, name,...field} }) => (
+                  <DatePicker 
+                    {...field}
+                    inputRef={ref}
+                    label="Date relance" 
+                    renderInput={(inputProps) => (
+                      <TextField
+                        {...inputProps}
+                        disabled
+                        fullWidth
+                        name={name}
+                        value={ConsentementQuery.data.relanceDate}
+                      />
+                    )}
+                    format="YYYY-MM-DD"
+                    KeyboardButtonProps={{"aria-label": "change date"}}
+                 />
+                 )}
+               />
+              </Grid>
+              <Grid item xs={12} sm={12}>
               <Controller 
                name="messageperso"
                control={control}
@@ -199,10 +198,8 @@ function Consentement() {
                  />
                )}
               />
+              </Grid>
             </Grid>
-
-            </Grid>
-
           </CardContent>
           <CardActions>
             <Button onClick={handleCancel} >Annuler</Button>

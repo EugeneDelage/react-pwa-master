@@ -22,8 +22,6 @@ import { currentUser } from '@/store/redux/users/userSlice';
 function Header() {
   const user= useSelector(currentUser);
   
-  console.log("user",user);
-
   const [, sidebarActions] = useSidebar();
   const [, themeActions] = useTheme();
 
@@ -49,7 +47,7 @@ function Header() {
               src={lavallogo}
             />                  
           </FlexBox>
-          { user!=null &&
+          { user?.loggedIn!=null &&
             <div>
               <FlexBox>
                 <Typography variant="h6">Portail des élus [ {user.email} ]</Typography>
